@@ -61,7 +61,7 @@ original_data = copy.deepcopy(raw_data)
 headers_list = raw_data["headers"]
 rows = raw_data["data"]
 
-# Add new column headers for the 52-week high metrics to the filtered data schema
+# Add new column headers for the 52-week high metrics
 filtered_headers = list(headers_list)
 filtered_headers.extend(["Calculated52WkHigh", "DistFrom52WkHighPct"])
 
@@ -103,12 +103,28 @@ filtered_data["headers"] = filtered_headers
 filtered_data["data"] = filtered_rows
 filtered_data["tot_rec"] = len(filtered_rows)
 
-# Create the master output dictionary combining all three requested segments
+# Determine Top 5 Picks of the Day
+dist_idx = filtered_headers.index("DistFrom52WkHighPct")
+sorted_filtered_rows = sorted(
+    filtered_rows, key=lambda x: x[dist_idx], reverse=True
+)
+top_5_rows = sorted_filtered_rows[:5]
+
+top_5_data = copy.deepcopy(filtered_data)
+top_5_data["data"] = top_5_rows
+top_5_data["tot_rec"] = len(top_5_rows)
+
+# Extract just the symbols for the top 5 picks
+top_5_symbols = [row[sym_idx] for row in top_5_rows]
+
+# Create the master output dictionary combining all sections
 master_output = {
     "date": datetime.now().strftime("%Y-%m-%d"),
     "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     "original_scanx_results": original_data,
     "filtered_52w_results": filtered_data,
+    "top_5_picks": top_5_data,
+    "top_5_symbols": top_5_symbols,
     "filtered_symbols": filtered_symbols,
 }
 
@@ -121,5 +137,6 @@ with open(filename, "w") as f:
 
 print(
     f"Successfully saved master JSON file ({filename}) with original data,"
-    f" filtered data, and {len(filtered_symbols)} symbols."
+    f" filtered data, top 5 picks, top 5 symbols, and {len(filtered_symbols)}"
+    " total symbols."
 )
