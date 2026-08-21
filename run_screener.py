@@ -1,9 +1,10 @@
 from datetime import datetime
 import json
+import copy
 import requests
 import yfinance as yf
 
-# 1. API Endpoint and Payload (matches your original curl)
+# 1. API Endpoint and Payload
 url = "https://ow-scanx-analytics.dhan.co/customscan/v2/fetchdt"
 api_headers = {
     "accept": "application/json, text/plain, */*",
@@ -52,55 +53,73 @@ payload = {
 
 print("Fetching data from ScanX API...")
 response = requests.post(url, headers=api_headers, json=payload)
-data = response.json()
+raw_data = response.json()
 
-headers_list = data["headers"]
-rows = data["data"]
+# Preserve a deep copy of the raw original response
+original_data = copy.deepcopy(raw_data)
 
-# Add new column headers for the 52-week high metrics
-headers_list.extend(["Calculated52WkHigh", "DistFrom52WkHighPct"])
+headers_list = raw_data["headers"]
+rows = raw_data["data"]
+
+# Add new column headers for the 52-week high metrics to the filtered data schema
+filtered_headers = list(headers_list)
+filtered_headers.extend(["Calculated52WkHigh", "DistFrom52WkHighPct"])
 
 sym_idx = headers_list.index("Sym")
 ltp_idx = headers_list.index("Ltp")
 
 filtered_rows = []
+filtered_symbols = []
 
 print(f"Processing {len(rows)} stocks and checking 52-week highs via yfinance...")
 for row in rows:
   sym = row[sym_idx]
   ltp = row[ltp_idx]
-  ticker_symbol = f"{sym}.NS"  # Yahoo Finance NSE format
+  ticker_symbol = f"{sym}.NS"
 
   try:
-    # Fetch 1 year of history to find true 52-week high
     ticker = yf.Ticker(ticker_symbol)
     hist = ticker.history(period="1y")
 
     if not hist.empty:
       wk52_high = hist["High"].max()
 
-      # Filter Rule: Stock must be within 10% of its 52-week high (LTP >= 90% of high)
+      # Filter Rule: Stock must be within 10% of its 52-week high
       if ltp >= (0.90 * wk52_high):
         dist_pct = round(((ltp - wk52_high) / wk52_high) * 100, 2)
 
-        # Append new objects/values to the row matching the new headers
-        row.append(round(wk52_high, 2))
-        row.append(dist_pct)
-        filtered_rows.append(row)
+        # Create a new row with the calculated fields appended
+        new_row = list(row)
+        new_row.append(round(wk52_high, 2))
+        new_row.append(dist_pct)
+        filtered_rows.append(new_row)
+        filtered_symbols.append(sym)
   except Exception as e:
     print(f"Skipping {sym} due to error: {e}")
 
-# Update JSON response structure with filtered data
-data["data"] = filtered_rows
-data["tot_rec"] = len(filtered_rows)
+# Build structured filtered response object
+filtered_data = copy.deepcopy(raw_data)
+filtered_data["headers"] = filtered_headers
+filtered_data["data"] = filtered_rows
+filtered_data["tot_rec"] = len(filtered_rows)
+
+# Create the master output dictionary combining all three requested segments
+master_output = {
+    "date": datetime.now().strftime("%Y-%m-%d"),
+    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    "original_scanx_results": original_data,
+    "filtered_52w_results": filtered_data,
+    "filtered_symbols": filtered_symbols,
+}
 
 # Generate filename with today's date
 today_date = datetime.now().strftime("%Y-%m-%d")
 filename = f"data_{today_date}.json"
 
 with open(filename, "w") as f:
-  json.dump(data, f, indent=4)
+  json.dump(master_output, f, indent=4)
 
 print(
-    f"Successfully saved {len(filtered_rows)} matching stocks to {filename}"
+    f"Successfully saved master JSON file ({filename}) with original data,"
+    f" filtered data, and {len(filtered_symbols)} symbols."
 )
