@@ -1,0 +1,49 @@
+name: Fetch Daily ScanX Data
+
+on:
+  schedule:
+    # 3:10 PM IST is 09:40 UTC, Monday to Friday (1-5)
+    - cron: '40 9 * * 1-5'
+  
+  # Allows you to test it manually anytime from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  fetch-scan-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Date Variable
+        id: date
+        run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Run Curl and Save Output
+        run: |
+          curl --location 'https://ow-scanx-analytics.dhan.co/customscan/v2/fetchdt' \
+          --header 'accept: application/json, text/plain, */*' \
+          --header 'accept-language: en-GB,en;q=0.9' \
+          --header 'auth: null' \
+          --header 'content-type: application/json' \
+          --header 'origin: https://scanx.trade' \
+          --header 'priority: u=1, i' \
+          --header 'sec-ch-ua: "Not=A?Brand";v="99", "Brave";v="151", "Chromium";v="151"' \
+          --header 'sec-ch-ua-mobile: ?0' \
+          --header 'sec-ch-ua-platform: "Windows"' \
+          --header 'sec-fetch-dest: empty' \
+          --header 'sec-fetch-mode: cors' \
+          --header 'sec-fetch-site: cross-site' \
+          --header 'sec-gpc: 1' \
+          --header 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36' \
+          --data '{"data": {"count": 100, "sort": "Mcap", "sorder": "desc", "fields": ["DispSym", "Ltp", "Pchange", "PPerchange", "Volume", "Pe", "Mcap", "Open", "BcOpen", "BcClose", "DayRSI14CurrentCandle", "Sym"], "pgno": 1, "query": {"logic_op": "AND", "params": [{"field": "Exch", "op": "eq", "val": "NSE"}, {"field": "Volume", "op": "gte", "field2": "DaySMA10VolMul_2", "val": ""}, {"field": "Open", "op": "gt", "field2": "BcOpen", "val": ""}, {"field": "Ltp", "op": "gt", "field2": "BcClose", "val": ""}, {"field": "DayRSI14CurrentCandle", "op": "gte", "val": "65"}, {"field": "OgInst", "op": "eq", "val": "ES"}, {"field": "Volume", "op": "gte", "val": "0"}]}}}' \
+          -o "data_${{ env.DATE }}.json"
+
+      - name: Commit and Push to Repository
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data_${{ env.DATE }}.json
+          git diff --staged --quiet || git commit -m "Auto-save ScanX data for ${{ env.DATE }}"
+          git push
