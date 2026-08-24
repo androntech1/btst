@@ -1096,7 +1096,7 @@
             const tbody = document.getElementById('ruleBasedTableBody');
             tbody.innerHTML = '';
 
-            const rows = top5Data?.data || [];
+            let rows = (top5Data?.data || []).slice();
             if (!rows.length) {
                 tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-dim);">No stocks passed rule-based filter</td></tr>`;
                 return;

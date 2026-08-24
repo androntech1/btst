@@ -781,8 +781,11 @@ def main():
     filtered_data["tot_rec"] = len(filtered_rows)
 
     # 3. RULE-BASED TOP 5
+    # Sort by absolute distance from 52W high ascending — stocks nearest their 52W high rank first.
+    # This correctly represents "Closest Proximity to 52W High" regardless of whether the
+    # stock is just above (+) or just below (-) the high.
     dist_idx = filtered_headers.index("DistFrom52WkHighPct")
-    sorted_filtered_rows = sorted(filtered_rows, key=lambda x: x[dist_idx], reverse=True)
+    sorted_filtered_rows = sorted(filtered_rows, key=lambda x: abs(x[dist_idx]))
     top_5_rows = sorted_filtered_rows[:5]
 
     top_5_data = copy.deepcopy(filtered_data)
