@@ -147,10 +147,14 @@ def tradingview_url(symbol):
     """
     Build a TradingView chart URL for an NSE symbol.
 
+    Opens TradingView's chart page directly with:
+        Exchange: NSE
+        Timeframe: 1 Day
+
     Example:
         RELIANCE
         ->
-        https://www.tradingview.com/symbols/NSE-RELIANCE/
+        https://www.tradingview.com/chart/?symbol=NSE%3ARELIANCE&interval=D
     """
 
     clean_symbol = str(symbol).strip().upper()
@@ -158,9 +162,16 @@ def tradingview_url(symbol):
     if not clean_symbol:
         return ""
 
-    encoded_symbol = quote(clean_symbol, safe="")
+    tradingview_symbol = f"NSE:{clean_symbol}"
 
-    return f"https://www.tradingview.com/symbols/" f"NSE-{encoded_symbol}/"
+    encoded_symbol = quote(
+        tradingview_symbol,
+        safe="",
+    )
+
+    return (
+        "https://www.tradingview.com/chart/" f"?symbol={encoded_symbol}" "&interval=D"
+    )
 
 
 # ============================================================
@@ -715,14 +726,6 @@ def get_ai_top_5_picks(
     # --------------------------------------------------------
     # OpenAI-compatible request
     # --------------------------------------------------------
-    #
-    # OpenRouter supports OpenAI-compatible chat completions
-    # and structured JSON output through response_format.
-    #
-    # The same request shape is intentionally used for OpenAI
-    # so switching providers later is minimal.
-    #
-    # --------------------------------------------------------
 
     payload = {
         "model": AI_MODEL,
@@ -1025,7 +1028,8 @@ def generate_readme(
     day_lines.append("")
 
     day_lines.append(
-        "| Rank | Stock | LTP | % Change | RSI | Distance from 52W High | TradingView |"
+        "| Rank | Stock | LTP | % Change | RSI | "
+        "Distance from 52W High | TradingView |"
     )
 
     day_lines.append("|---:|---|---:|---:|---:|---:|---|")
@@ -1059,13 +1063,13 @@ def generate_readme(
             f"{format_percent(pchange)} | "
             f"{format_number(rsi)} | "
             f"{format_percent(distance)} | "
-            f"[Chart ↗]({tv_url}) |"
+            f"[Daily Chart ↗]({tv_url}) |"
         )
 
     if not top_5_rows:
 
         day_lines.append(
-            "| - | No stocks passed the rule-based filter | - | - | - | - | - |"
+            "| - | No stocks passed the rule-based filter | " "- | - | - | - | - |"
         )
 
     day_lines.append("")
@@ -1078,7 +1082,10 @@ def generate_readme(
 
     day_lines.append("")
 
-    ai_top_5 = ai_top_5_data.get("top_5", [])
+    ai_top_5 = ai_top_5_data.get(
+        "top_5",
+        [],
+    )
 
     if ai_top_5:
 
@@ -1122,7 +1129,7 @@ def generate_readme(
                 f"**{markdown_escape(display_symbol)}** | "
                 f"{score} | "
                 f"{markdown_escape(momentum)} | "
-                f"[Chart ↗]({tv_url}) |"
+                f"[Daily Chart ↗]({tv_url}) |"
             )
 
         day_lines.append("")
@@ -1255,7 +1262,7 @@ def generate_readme(
 
     if generated_by:
 
-        day_lines.append(f"**AI model:** `{markdown_escape(generated_by)}`")
+        day_lines.append(f"**AI model:** " f"`{markdown_escape(generated_by)}`")
 
         day_lines.append("")
 
@@ -1319,7 +1326,7 @@ Stocks passing those conditions are then ranked in two ways:
 1. **Rule-Based Top 5** — sorted by proximity to the 52-week high.
 2. **AI Top 5** — independently ranked using the supplied quantitative fields.
 
-Each stock has a **Chart ↗** link that opens its NSE chart on TradingView.
+Each stock has a **Daily Chart ↗** link that opens its NSE chart directly on TradingView using the **1D / Daily timeframe**.
 
 ## Daily Results
 
@@ -1377,7 +1384,7 @@ Each stock has a **Chart ↗** link that opens its NSE chart on TradingView.
 
         f.write(final_content.strip() + "\n")
 
-    print(f"README updated successfully: {README_FILE}")
+    print(f"README updated successfully: " f"{README_FILE}")
 
 
 # ============================================================
@@ -1474,8 +1481,9 @@ def main():
     filtered_symbols = []
 
     print(
-        f"\nProcessing {len(rows)} stocks and checking "
-        f"52-week highs via yfinance..."
+        f"\nProcessing {len(rows)} stocks "
+        f"and checking 52-week highs via "
+        f"yfinance..."
     )
 
     # --------------------------------------------------------
@@ -1496,7 +1504,7 @@ def main():
             IndexError,
         ) as e:
 
-            print(f"Skipping malformed row due to error: {e}")
+            print(f"Skipping malformed row " f"due to error: {e}")
 
             continue
 
@@ -1515,7 +1523,7 @@ def main():
 
             if hist.empty:
 
-                print(f"  No historical data available for {sym}")
+                print(f"No historical data " f"available for {sym}")
 
                 continue
 
@@ -1523,7 +1531,7 @@ def main():
 
             if high_series.empty:
 
-                print(f"  No High values available for {sym}")
+                print(f"No High values " f"available for {sym}")
 
                 continue
 
@@ -1557,14 +1565,15 @@ def main():
                 filtered_symbols.append(sym)
 
                 print(
-                    f"  PASS | LTP={ltp:.2f} | "
+                    f"  PASS | "
+                    f"LTP={ltp:.2f} | "
                     f"52W High={wk52_high:.2f} | "
                     f"Distance={dist_pct:.2f}%"
                 )
 
             else:
 
-                print(f"  FAIL | LTP={ltp:.2f} | " f"52W High={wk52_high:.2f}")
+                print(f"  FAIL | " f"LTP={ltp:.2f} | " f"52W High={wk52_high:.2f}")
 
         except Exception as e:
 
@@ -1642,7 +1651,8 @@ def main():
             print(
                 f"  {pick.get('rank')}. "
                 f"{pick.get('symbol')} "
-                f"(Score: {pick.get('score')})"
+                f"(Score: "
+                f"{pick.get('score')})"
             )
 
         print("\nAI analysis completed successfully.")
@@ -1674,12 +1684,12 @@ def main():
         "timestamp": now.strftime("%Y-%m-%d %H:%M:%S"),
         "ai_provider": (AI_PROVIDER),
         "ai_model": (AI_MODEL),
-        "original_scanx_results": original_data,
-        "filtered_52w_results": filtered_data,
-        "top_5_picks": top_5_data,
-        "top_5_symbols": top_5_symbols,
-        "filtered_symbols": filtered_symbols,
-        "ai_top_5_picks": ai_top_5_data,
+        "original_scanx_results": (original_data),
+        "filtered_52w_results": (filtered_data),
+        "top_5_picks": (top_5_data),
+        "top_5_symbols": (top_5_symbols),
+        "filtered_symbols": (filtered_symbols),
+        "ai_top_5_picks": (ai_top_5_data),
     }
 
     # --------------------------------------------------------
