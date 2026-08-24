@@ -2,6 +2,7 @@ from datetime import datetime
 import json
 import copy
 import os
+from urllib.parse import quote
 
 import requests
 import yfinance as yf
@@ -21,7 +22,7 @@ SCANX_HEADERS = {
 
 # Gemini REST API
 # Keep the API key OUT of this file.
-# GitHub Actions will provide it through:
+# GitHub Actions provides it through:
 # GEMINI_API_KEY
 GEMINI_MODEL = "gemini-3.7-flash"
 
@@ -29,6 +30,8 @@ GEMINI_URL = (
     f"https://generativelanguage.googleapis.com/v1beta/"
     f"models/{GEMINI_MODEL}:generateContent"
 )
+
+README_FILE = "README.md"
 
 
 # ============================================================
@@ -103,6 +106,89 @@ SCANX_PAYLOAD = {
 
 
 # ============================================================
+# TRADINGVIEW LINK
+# ============================================================
+
+def tradingview_url(symbol):
+    """
+    Build a TradingView chart URL for an NSE symbol.
+
+    Example:
+        RELIANCE
+        ->
+        https://www.tradingview.com/symbols/NSE-RELIANCE/
+    """
+
+    clean_symbol = str(symbol).strip().upper()
+
+    if not clean_symbol:
+        return ""
+
+    encoded_symbol = quote(
+        clean_symbol,
+        safe=""
+    )
+
+    return (
+        f"https://www.tradingview.com/symbols/"
+        f"NSE-{encoded_symbol}/"
+    )
+
+
+# ============================================================
+# MARKDOWN HELPERS
+# ============================================================
+
+def markdown_escape(value):
+    """
+    Escape characters that can interfere with Markdown tables.
+    """
+
+    if value is None:
+        return ""
+
+    text = str(value)
+
+    return (
+        text
+        .replace("\\", "\\\\")
+        .replace("|", "\\|")
+        .replace("\n", " ")
+        .replace("\r", " ")
+    )
+
+
+def format_number(value, decimals=2):
+    """
+    Format numeric values safely for Markdown.
+    """
+
+    try:
+        return f"{float(value):,.{decimals}f}"
+    except (TypeError, ValueError):
+        return "-"
+
+
+def format_percent(value):
+    """
+    Format a percentage value.
+    """
+
+    try:
+        return f"{float(value):.2f}%"
+    except (TypeError, ValueError):
+        return "-"
+
+
+def get_stock_from_row(row, headers):
+    """
+    Convert a ScanX row into a dictionary.
+    """
+
+    return dict(zip(headers, row))
+
+
+# ============================================================
 # GEMINI AI FUNCTION
 # ============================================================
 
@@ -111,7 +197,7 @@ def get_ai_top_5_picks(filtered_rows, filtered_headers):
     Send filtered stock candidates to Gemini and ask it to
     independently rank the best 5 candidates.
 
-    The API key is read from the GEMINI_API_KEY environment variable.
+    The API key is read from GEMINI_API_KEY.
     """
 
     api_key = os.getenv("GEMINI_API_KEY")
@@ -396,7 +482,6 @@ CANDIDATE DATA
         timeout=120,
     )
 
-    # This gives us the actual HTTP error if Gemini rejects the request.
     if not response.ok:
         raise RuntimeError(
             f"Gemini API request failed "
@@ -460,7 +545,6 @@ CANDIDATE DATA
         key=lambda item: item.get("rank", 999)
     )
 
-    # Keep maximum 5.
     validated_top_5 = validated_top_5[:5]
 
     ai_result["top_5"] = validated_top_5
@@ -469,6 +553,438 @@ CANDIDATE DATA
     ai_result["generated_by"] = GEMINI_MODEL
 
     return ai_result
+
+
+# ============================================================
+# README GENERATION
+# ============================================================
+
+def generate_readme(
+    report_date,
+    filtered_rows,
+    filtered_headers,
+    top_5_rows,
+    ai_top_5_data,
+    total_scanx_stocks,
+):
+    """
+    Generate the complete README.md dashboard.
+
+    Each execution replaces/updates the section for the current
+    date while preserving all previous daily sections.
+    """
+
+    existing_readme = ""
+
+    if os.path.exists(README_FILE):
+        with open(
+            README_FILE,
+            "r",
+            encoding="utf-8"
+        ) as f:
+            existing_readme = f.read()
+
+    # --------------------------------------------------------
+    # Build current day's section
+    # --------------------------------------------------------
+
+    day_lines = []
+
+    day_lines.append(
+        f"## 📅 {datetime.strptime(report_date, '%Y-%m-%d').strftime('%d %B %Y')}"
+    )
+    day_lines.append("")
+    day_lines.append(
+        f"<details>"
+    )
+    day_lines.append(
+        "<summary>Show today's scanner results</summary>"
+    )
+    day_lines.append("")
+
+    # --------------------------------------------------------
+    # Summary
+    # --------------------------------------------------------
+
+    day_lines.append("### Scanner Summary")
+    day_lines.append("")
+    day_lines.append(
+        f"- ScanX candidates: **{total_scanx_stocks}**"
+    )
+    day_lines.append(
+        f"- Stocks within 10% of 52-week high: **{len(filtered_rows)}**"
+    )
+    day_lines.append(
+        f"- Rule-based Top 5: **{len(top_5_rows)}**"
+    )
+    day_lines.append(
+        f"- Gemini AI Top 5: **{len(ai_top_5_data.get('top_5', []))}**"
+    )
+    day_lines.append("")
+
+    # --------------------------------------------------------
+    # Rule-based Top 5
+    # --------------------------------------------------------
+
+    day_lines.append("### 📊 Rule-Based Top 5")
+    day_lines.append("")
+    day_lines.append(
+        "| Rank | Stock | LTP | % Change | RSI | Distance from 52W High | TradingView |"
+    )
+    day_lines.append(
+        "|---:|---|---:|---:|---:|---:|---|"
+    )
+
+    header_index = {
+        header: index
+        for index, header in enumerate(filtered_headers)
+    }
+
+    for rank, row in enumerate(top_5_rows, start=1):
+
+        symbol = row[header_index["Sym"]]
+        display_symbol = row[header_index["DispSym"]]
+
+        ltp = row[header_index["Ltp"]]
+        pchange = row[header_index["PPerchange"]]
+        rsi = row[header_index["DayRSI14CurrentCandle"]]
+        distance = row[header_index["DistFrom52WkHighPct"]]
+
+        tv_url = tradingview_url(symbol)
+
+        day_lines.append(
+            "| "
+            f"{rank} | "
+            f"**{markdown_escape(display_symbol)}** | "
+            f"{format_number(ltp)} | "
+            f"{format_percent(pchange)} | "
+            f"{format_number(rsi)} | "
+            f"{format_percent(distance)} | "
+            f"[Chart ↗]({tv_url}) |"
+        )
+
+    if not top_5_rows:
+        day_lines.append(
+            "| - | No stocks passed the rule-based filter | - | - | - | - | - |"
+        )
+
+    day_lines.append("")
+
+    # --------------------------------------------------------
+    # Gemini AI Top 5
+    # --------------------------------------------------------
+
+    day_lines.append("### 🤖 Gemini AI Top 5")
+    day_lines.append("")
+
+    ai_top_5 = ai_top_5_data.get("top_5", [])
+
+    if ai_top_5:
+
+        day_lines.append(
+            "| Rank | Stock | Score | Momentum | TradingView |"
+        )
+        day_lines.append(
+            "|---:|---|---:|---|---|"
+        )
+
+        for pick in ai_top_5:
+
+            symbol = str(
+                pick.get("symbol", "")
+            ).strip()
+
+            display_symbol = str(
+                pick.get("display_symbol", symbol)
+            ).strip()
+
+            score = pick.get(
+                "score",
+                "-"
+            )
+
+            momentum = str(
+                pick.get(
+                    "momentum_assessment",
+                    ""
+                )
+            )
+
+            tv_url = tradingview_url(symbol)
+
+            day_lines.append(
+                "| "
+                f"{pick.get('rank', '-')} | "
+                f"**{markdown_escape(display_symbol)}** | "
+                f"{score} | "
+                f"{markdown_escape(momentum)} | "
+                f"[Chart ↗]({tv_url}) |"
+            )
+
+        day_lines.append("")
+
+        # ----------------------------------------------------
+        # AI Details
+        # ----------------------------------------------------
+
+        day_lines.append(
+            "#### AI Selection Details"
+        )
+        day_lines.append("")
+
+        for pick in ai_top_5:
+
+            symbol = str(
+                pick.get("symbol", "")
+            ).strip()
+
+            display_symbol = str(
+                pick.get("display_symbol", symbol)
+            ).strip()
+
+            day_lines.append(
+                f"**{pick.get('rank', '-')}."
+                f" {markdown_escape(display_symbol)}** "
+                f"— Score: **{pick.get('score', '-')}**"
+            )
+
+            why = pick.get(
+                "why_it_was_selected",
+                ""
+            )
+
+            if why:
+                day_lines.append("")
+                day_lines.append(
+                    f"**Why selected:** "
+                    f"{markdown_escape(why)}"
+                )
+
+            strengths = pick.get(
+                "key_strengths",
+                []
+            )
+
+            if strengths:
+                day_lines.append("")
+                day_lines.append(
+                    "**Key strengths:**"
+                )
+
+                for strength in strengths:
+                    day_lines.append(
+                        f"- {markdown_escape(strength)}"
+                    )
+
+            risks = pick.get(
+                "risk_flags",
+                []
+            )
+
+            if risks:
+                day_lines.append("")
+                day_lines.append(
+                    "**Risk flags:**"
+                )
+
+                for risk in risks:
+                    day_lines.append(
+                        f"- {markdown_escape(risk)}"
+                    )
+
+            day_lines.append("")
+
+    else:
+
+        day_lines.append(
+            "Gemini AI analysis was unavailable for this run."
+        )
+        day_lines.append("")
+
+    # --------------------------------------------------------
+    # AI Market Note
+    # --------------------------------------------------------
+
+    market_note = ai_top_5_data.get(
+        "overall_market_note",
+        ""
+    )
+
+    if market_note:
+
+        day_lines.append(
+            "#### Market Note"
+        )
+        day_lines.append("")
+        day_lines.append(
+            markdown_escape(market_note)
+        )
+        day_lines.append("")
+
+    methodology_note = ai_top_5_data.get(
+        "methodology_note",
+        ""
+    )
+
+    if methodology_note:
+
+        day_lines.append(
+            "#### Methodology Note"
+        )
+        day_lines.append("")
+        day_lines.append(
+            markdown_escape(methodology_note)
+        )
+        day_lines.append("")
+
+    day_lines.append(
+        "</details>"
+    )
+    day_lines.append("")
+
+    current_section = "\n".join(day_lines)
+
+    # --------------------------------------------------------
+    # Replace existing section for same date if present.
+    # --------------------------------------------------------
+
+    date_heading = (
+        f"## 📅 "
+        f"{datetime.strptime(report_date, '%Y-%m-%d').strftime('%d %B %Y')}"
+    )
+
+    if date_heading in existing_readme:
+
+        start_index = existing_readme.index(
+            date_heading
+        )
+
+        remaining = existing_readme[
+            start_index:
+        ]
+
+        next_section_position = remaining.find(
+            "\n## 📅 ",
+            len(date_heading)
+        )
+
+        if next_section_position == -1:
+
+            end_index = len(
+                existing_readme
+            )
+
+        else:
+
+            end_index = (
+                start_index
+                + next_section_position
+                + 1
+            )
+
+        existing_readme = (
+            existing_readme[:start_index]
+            + existing_readme[end_index:]
+        )
+
+    # --------------------------------------------------------
+    # README header
+    # --------------------------------------------------------
+
+    header = """# 📈 Daily NSE Momentum Scanner
+
+Automated daily momentum watchlist generated from ScanX screening data, 52-week-high filtering, and Gemini-based quantitative ranking.
+
+> **Note:** This is a screening/watchlist tool, not personalized investment advice. Scores are quantitative rankings and are not probabilities of profit.
+
+## How the scanner works
+
+The scanner first applies mechanical conditions to NSE stocks:
+
+- Volume ≥ 2× 10-day average volume
+- Positive opening/price action
+- LTP above the reference close
+- RSI(14) ≥ 65
+- LTP within 10% of the 52-week high
+
+Stocks passing those conditions are then ranked in two ways:
+
+1. **Rule-Based Top 5** — sorted by proximity to the 52-week high.
+2. **Gemini AI Top 5** — independently ranked using the supplied quantitative fields.
+
+Each stock has a **Chart ↗** link that opens its NSE chart on TradingView.
+
+## Daily Results
+
+"""
+
+    # --------------------------------------------------------
+    # Preserve old results and put newest day first.
+    # --------------------------------------------------------
+
+    old_content = existing_readme
+
+    if "## Daily Results" in old_content:
+
+        results_position = old_content.index(
+            "## Daily Results"
+        )
+
+        prefix = old_content[
+            :results_position
+            + len("## Daily Results")
+        ]
+
+        old_daily_sections = old_content[
+            results_position
+            + len("## Daily Results"):
+        ].strip()
+
+    else:
+
+        prefix = header.rstrip()
+
+        old_daily_sections = old_content.strip()
+
+    # Remove the generic old header if necessary.
+    if old_daily_sections.startswith(
+        "Automated daily momentum watchlist"
+    ):
+        old_daily_sections = ""
+
+    if old_daily_sections:
+
+        final_content = (
+            prefix
+            + "\n\n"
+            + current_section
+            + "\n"
+            + old_daily_sections
+            + "\n"
+        )
+
+    else:
+
+        final_content = (
+            prefix
+            + "\n\n"
+            + current_section
+        )
+
+    with open(
+        README_FILE,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        f.write(
+            final_content.strip()
+            + "\n"
+        )
+
+    print(
+        f"README updated successfully: {README_FILE}"
+    )
 
 
 # ============================================================
@@ -503,7 +1019,6 @@ def main():
 
     raw_data = response.json()
 
-    # Preserve deep copy of original response.
     original_data = copy.deepcopy(raw_data)
 
     # --------------------------------------------------------
@@ -526,13 +1041,17 @@ def main():
     if not rows:
         print("ScanX returned zero stocks.")
 
-    print(f"ScanX returned {len(rows)} stocks.")
+    print(
+        f"ScanX returned {len(rows)} stocks."
+    )
 
     # --------------------------------------------------------
     # 2. ADD 52-WEEK HIGH COLUMNS
     # --------------------------------------------------------
 
-    filtered_headers = list(headers_list)
+    filtered_headers = list(
+        headers_list
+    )
 
     filtered_headers.extend(
         [
@@ -542,9 +1061,17 @@ def main():
     )
 
     try:
-        sym_idx = headers_list.index("Sym")
-        ltp_idx = headers_list.index("Ltp")
+
+        sym_idx = headers_list.index(
+            "Sym"
+        )
+
+        ltp_idx = headers_list.index(
+            "Ltp"
+        )
+
     except ValueError as e:
+
         raise RuntimeError(
             f"Required ScanX field missing: {e}"
         )
@@ -564,22 +1091,38 @@ def main():
     for row in rows:
 
         try:
-            sym = str(row[sym_idx]).strip()
-            ltp = float(row[ltp_idx])
-        except (ValueError, TypeError, IndexError) as e:
+
+            sym = str(
+                row[sym_idx]
+            ).strip()
+
+            ltp = float(
+                row[ltp_idx]
+            )
+
+        except (
+            ValueError,
+            TypeError,
+            IndexError
+        ) as e:
+
             print(
                 f"Skipping malformed row due to error: {e}"
             )
+
             continue
 
         ticker_symbol = f"{sym}.NS"
 
         try:
+
             print(
                 f"Checking {ticker_symbol}..."
             )
 
-            ticker = yf.Ticker(ticker_symbol)
+            ticker = yf.Ticker(
+                ticker_symbol
+            )
 
             hist = ticker.history(
                 period="1y",
@@ -587,46 +1130,67 @@ def main():
             )
 
             if hist.empty:
+
                 print(
                     f"  No historical data available for {sym}"
                 )
+
                 continue
 
-            # Make sure High contains valid numerical values.
-            high_series = hist["High"].dropna()
+            high_series = (
+                hist["High"]
+                .dropna()
+            )
 
             if high_series.empty:
+
                 print(
                     f"  No High values available for {sym}"
                 )
+
                 continue
 
-            wk52_high = float(high_series.max())
+            wk52_high = float(
+                high_series.max()
+            )
 
             # ------------------------------------------------
             # FILTER:
             # Stock must be within 10% of 52-week high
             # ------------------------------------------------
 
-            if ltp >= (0.90 * wk52_high):
+            if ltp >= (
+                0.90 * wk52_high
+            ):
 
                 dist_pct = round(
-                    ((ltp - wk52_high) / wk52_high) * 100,
+                    (
+                        (ltp - wk52_high)
+                        / wk52_high
+                    ) * 100,
                     2
                 )
 
                 new_row = list(row)
 
                 new_row.append(
-                    round(wk52_high, 2)
+                    round(
+                        wk52_high,
+                        2
+                    )
                 )
 
                 new_row.append(
                     dist_pct
                 )
 
-                filtered_rows.append(new_row)
-                filtered_symbols.append(sym)
+                filtered_rows.append(
+                    new_row
+                )
+
+                filtered_symbols.append(
+                    sym
+                )
 
                 print(
                     f"  PASS | LTP={ltp:.2f} | "
@@ -635,12 +1199,14 @@ def main():
                 )
 
             else:
+
                 print(
                     f"  FAIL | LTP={ltp:.2f} | "
                     f"52W High={wk52_high:.2f}"
                 )
 
         except Exception as e:
+
             print(
                 f"Skipping {sym} due to yfinance error: {e}"
             )
@@ -654,18 +1220,30 @@ def main():
     # 4. BUILD FILTERED RESPONSE
     # --------------------------------------------------------
 
-    filtered_data = copy.deepcopy(raw_data)
+    filtered_data = copy.deepcopy(
+        raw_data
+    )
 
-    filtered_data["headers"] = filtered_headers
-    filtered_data["data"] = filtered_rows
-    filtered_data["tot_rec"] = len(filtered_rows)
+    filtered_data["headers"] = (
+        filtered_headers
+    )
+
+    filtered_data["data"] = (
+        filtered_rows
+    )
+
+    filtered_data["tot_rec"] = (
+        len(filtered_rows)
+    )
 
     # --------------------------------------------------------
     # 5. RULE-BASED TOP 5
     # --------------------------------------------------------
 
-    dist_idx = filtered_headers.index(
-        "DistFrom52WkHighPct"
+    dist_idx = (
+        filtered_headers.index(
+            "DistFrom52WkHighPct"
+        )
     )
 
     sorted_filtered_rows = sorted(
@@ -674,12 +1252,21 @@ def main():
         reverse=True,
     )
 
-    top_5_rows = sorted_filtered_rows[:5]
+    top_5_rows = (
+        sorted_filtered_rows[:5]
+    )
 
-    top_5_data = copy.deepcopy(filtered_data)
+    top_5_data = copy.deepcopy(
+        filtered_data
+    )
 
-    top_5_data["data"] = top_5_rows
-    top_5_data["tot_rec"] = len(top_5_rows)
+    top_5_data["data"] = (
+        top_5_rows
+    )
+
+    top_5_data["tot_rec"] = (
+        len(top_5_rows)
+    )
 
     top_5_symbols = [
         row[sym_idx]
@@ -687,10 +1274,12 @@ def main():
     ]
 
     print("\nRule-based Top 5:")
+
     for rank, symbol in enumerate(
         top_5_symbols,
         start=1
     ):
+
         print(
             f"  {rank}. {symbol}"
         )
@@ -699,20 +1288,36 @@ def main():
     # 6. GEMINI AI TOP 5
     # --------------------------------------------------------
 
-    print("\n" + "=" * 70)
-    print("GEMINI AI ANALYSIS")
-    print("=" * 70)
+    print(
+        "\n"
+        + "=" * 70
+    )
+
+    print(
+        "GEMINI AI ANALYSIS"
+    )
+
+    print(
+        "=" * 70
+    )
 
     try:
 
-        ai_top_5_data = get_ai_top_5_picks(
-            filtered_rows,
-            filtered_headers,
+        ai_top_5_data = (
+            get_ai_top_5_picks(
+                filtered_rows,
+                filtered_headers,
+            )
         )
 
-        print("\nGemini AI Top 5:")
+        print(
+            "\nGemini AI Top 5:"
+        )
 
-        for pick in ai_top_5_data.get("top_5", []):
+        for pick in ai_top_5_data.get(
+            "top_5",
+            []
+        ):
 
             print(
                 f"  {pick.get('rank')}. "
@@ -734,10 +1339,6 @@ def main():
             f"Reason: {e}"
         )
 
-        # IMPORTANT:
-        # Do not fail the entire stock scanner if Gemini
-        # is temporarily unavailable.
-
         ai_top_5_data = {
             "top_5": [],
             "overall_market_note": (
@@ -758,29 +1359,32 @@ def main():
     now = datetime.now()
 
     master_output = {
-        "date": now.strftime("%Y-%m-%d"),
+
+        "date": now.strftime(
+            "%Y-%m-%d"
+        ),
 
         "timestamp": now.strftime(
             "%Y-%m-%d %H:%M:%S"
         ),
 
-        # Original ScanX response
-        "original_scanx_results": original_data,
+        "original_scanx_results":
+            original_data,
 
-        # Stocks passing 52-week high filter
-        "filtered_52w_results": filtered_data,
+        "filtered_52w_results":
+            filtered_data,
 
-        # Existing rule-based Top 5
-        "top_5_picks": top_5_data,
+        "top_5_picks":
+            top_5_data,
 
-        # Existing rule-based symbols
-        "top_5_symbols": top_5_symbols,
+        "top_5_symbols":
+            top_5_symbols,
 
-        # All symbols passing the 52-week filter
-        "filtered_symbols": filtered_symbols,
+        "filtered_symbols":
+            filtered_symbols,
 
-        # NEW: Gemini AI Top 5
-        "ai_top_5_picks": ai_top_5_data,
+        "ai_top_5_picks":
+            ai_top_5_data,
     }
 
     # --------------------------------------------------------
@@ -791,7 +1395,9 @@ def main():
         "%Y-%m-%d"
     )
 
-    filename = f"data_{today_date}.json"
+    filename = (
+        f"data_{today_date}.json"
+    )
 
     with open(
         filename,
@@ -806,13 +1412,39 @@ def main():
             ensure_ascii=False,
         )
 
+    print(
+        f"\nJSON saved to {filename}"
+    )
+
     # --------------------------------------------------------
-    # 9. FINAL SUMMARY
+    # 9. UPDATE README
     # --------------------------------------------------------
 
-    print("\n" + "=" * 70)
-    print("SCAN COMPLETE")
-    print("=" * 70)
+    generate_readme(
+        report_date=today_date,
+        filtered_rows=filtered_rows,
+        filtered_headers=filtered_headers,
+        top_5_rows=top_5_rows,
+        ai_top_5_data=ai_top_5_data,
+        total_scanx_stocks=len(rows),
+    )
+
+    # --------------------------------------------------------
+    # 10. FINAL SUMMARY
+    # --------------------------------------------------------
+
+    print(
+        "\n"
+        + "=" * 70
+    )
+
+    print(
+        "SCAN COMPLETE"
+    )
+
+    print(
+        "=" * 70
+    )
 
     print(
         f"Original stocks:       {len(rows)}"
@@ -835,7 +1467,13 @@ def main():
         f"Output file:           {filename}"
     )
 
-    print("=" * 70)
+    print(
+        f"README updated:        {README_FILE}"
+    )
+
+    print(
+        "=" * 70
+    )
 
 
 # ============================================================
