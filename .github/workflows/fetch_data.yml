@@ -2,9 +2,9 @@ name: Fetch and Filter ScanX Data
 
 on:
   schedule:
-    # 3:10 PM IST = 09:40 UTC
-    # Monday to Friday
-    - cron: '40 9 * * 1-5'
+    # 3:10 PM IST, Monday to Friday
+    - cron: '10 15 * * 1-5'
+      timezone: 'Asia/Kolkata'
 
   # Allows manual testing from the Actions tab
   workflow_dispatch:
