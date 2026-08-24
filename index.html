@@ -924,7 +924,8 @@
 
             if (window.location.protocol.startsWith('http')) {
                 try {
-                    const res = await fetch('manifest.json');
+                    let res = await fetch('data/manifest.json');
+                    if (!res.ok) res = await fetch('manifest.json');
                     if (res.ok) {
                         manifest = await res.json();
                     }
@@ -936,13 +937,13 @@
             if (manifest) {
                 select.innerHTML = '';
                 const latestOpt = document.createElement('option');
-                latestOpt.value = 'data_latest.json';
+                latestOpt.value = 'data/data_latest.json';
                 latestOpt.textContent = `Latest (${manifest.latest_date || 'Today'})`;
                 select.appendChild(latestOpt);
 
                 (manifest.available_dates || []).forEach(d => {
                     const opt = document.createElement('option');
-                    opt.value = `data_${d}.json`;
+                    opt.value = `data/data_${d}.json`;
                     opt.textContent = d;
                     select.appendChild(opt);
                 });
@@ -950,9 +951,9 @@
         }
 
         // Load Data File (Smart Fallback: HTTP Fetch -> Embedded Data)
-        async function loadData(filename = 'data_latest.json') {
+        async function loadData(filename = 'data/data_latest.json') {
             // 1. If running locally as file://, use embedded data immediately
-            if (window.location.protocol === 'file:' && (filename === 'data_latest.json' || filename.includes(window.__EMBEDDED_DATA__?.date))) {
+            if (window.location.protocol === 'file:' && (filename.includes('data_latest.json') || filename.includes(window.__EMBEDDED_DATA__?.date))) {
                 if (window.__EMBEDDED_DATA__) {
                     renderDashboard(window.__EMBEDDED_DATA__);
                     return;
@@ -964,7 +965,10 @@
                 const loader = document.getElementById('loader');
                 loader.style.display = 'flex';
                 try {
-                    const res = await fetch(filename);
+                    let res = await fetch(filename);
+                    if (!res.ok && !filename.startsWith('data/')) {
+                        res = await fetch(`data/${filename}`);
+                    }
                     if (res.ok) {
                         const data = await res.json();
                         renderDashboard(data);

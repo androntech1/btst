@@ -8,6 +8,8 @@ from urllib.parse import quote
 import requests
 import yfinance as yf
 
+from prompts import AI_RESPONSE_SCHEMA, build_ai_prompt
+
 
 # ============================================================
 # CONFIGURATION
@@ -32,9 +34,10 @@ AI_MODEL = os.getenv("AI_MODEL", "google/gemini-2.5-flash").strip()
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENAI_URL = "https://api.openai.com/v1/chat/completions"
 
+DATA_DIR = "data"
 README_FILE = "README.md"
-LATEST_DATA_FILE = "data_latest.json"
-MANIFEST_FILE = "manifest.json"
+LATEST_DATA_FILE = os.path.join(DATA_DIR, "data_latest.json")
+MANIFEST_FILE = os.path.join(DATA_DIR, "manifest.json")
 
 
 # ============================================================
@@ -168,104 +171,6 @@ def get_stock_from_row(row, headers):
     Convert a ScanX row into a dictionary.
     """
     return dict(zip(headers, row))
-
-
-# ============================================================
-# AI RESPONSE SCHEMA (Strict JSON Schema Compatible)
-# ============================================================
-
-AI_RESPONSE_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "top_5": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "rank": {"type": "integer"},
-                    "symbol": {"type": "string"},
-                    "display_symbol": {"type": "string"},
-                    "score": {"type": "number"},
-                    "why_it_was_selected": {"type": "string"},
-                    "recent_news": {"type": "string"},
-                    "key_strengths": {
-                        "type": "array",
-                        "items": {"type": "string"},
-                    },
-                    "risk_flags": {
-                        "type": "array",
-                        "items": {"type": "string"},
-                    },
-                    "momentum_assessment": {"type": "string"},
-                },
-                "required": [
-                    "rank",
-                    "symbol",
-                    "display_symbol",
-                    "score",
-                    "why_it_was_selected",
-                    "recent_news",
-                    "key_strengths",
-                    "risk_flags",
-                    "momentum_assessment",
-                ],
-                "additionalProperties": False,
-            },
-        },
-        "overall_market_note": {"type": "string"},
-        "methodology_note": {"type": "string"},
-        "generated_by": {"type": "string"},
-    },
-    "required": [
-        "top_5",
-        "overall_market_note",
-        "methodology_note",
-        "generated_by",
-    ],
-    "additionalProperties": False,
-}
-
-
-# ============================================================
-# AI PROMPT
-# ============================================================
-
-def build_ai_prompt(ai_stocks):
-    """
-    Build the quantitative ranking prompt.
-    """
-    current_date = datetime.now().strftime("%Y-%m-%d")
-
-    return f"""You are an expert quantitative stock screening assistant for the Indian National Stock Exchange (NSE).
-Today's date is {current_date}.
-
-Your task is to rank Indian NSE momentum candidates for a DAILY MOMENTUM WATCHLIST.
-
-All candidate stocks provided below have ALREADY met strict mechanical filters:
-1. NSE listed equity.
-2. Volume is >= 2x the 10-day average volume.
-3. Open is positive relative to previous Open.
-4. LTP is positive relative to previous Close.
-5. RSI(14) >= 65 (momentum confirmed).
-6. LTP is within 10% of 52-week high.
-
-============================================================
-STRICT DATA INTEGRITY & RANKING RULES
-============================================================
-- Select and rank the TOP 5 BEST candidates exclusively from the provided candidate list.
-- NEVER invent, modify, or hallucinate stock symbols.
-- Treat supplied numerical data as authoritative.
-- Give each of the top 5 stocks a quantitative score from 0 to 100 based on momentum strength, volume surge, RSI health, 52W-high proximity, and sound valuation/mcap metrics.
-- Overextension check: While RSI >= 65 confirms momentum, evaluate if volume and price action sustain the move without extreme bubble risk.
-- Web search / news (if available): Briefly check recent corporate news (e.g., quarterly results, contract wins, acquisitions, management actions) to explain the move. News is contextual and must not override quantitative fundamentals. If search is not available, mention "Recent-news verification unavailable."
-- Risk flags: Note concrete risks (e.g. high RSI overbought, high PE, lower volume vs peers).
-- Output must be strict JSON adhering to the specified schema.
-
-============================================================
-CANDIDATE DATA
-============================================================
-{json.dumps(ai_stocks, separators=(",", ":"), default=str)}
-"""
 
 
 # ============================================================
@@ -524,7 +429,6 @@ def get_ai_top_5_picks(filtered_rows, filtered_headers):
 
     raw_top_5 = ai_result.get("top_5")
     if not isinstance(raw_top_5, list):
-        # Check alternative keys
         for alt_key in ["top5", "picks", "top_picks", "candidates"]:
             if isinstance(ai_result.get(alt_key), list):
                 raw_top_5 = ai_result[alt_key]
@@ -535,7 +439,7 @@ def get_ai_top_5_picks(filtered_rows, filtered_headers):
 
     # Validate symbols against candidates
     sym_index = filtered_headers.index("Sym")
-    allowed_symbols = {str(row[sym_index]).strip() for row in filtered_rows}
+    allowed_symbols = {str(row[sym_index]).strip().upper() for row in filtered_rows}
 
     validated_top_5 = []
     seen_symbols = set()
@@ -611,20 +515,23 @@ def get_ai_top_5_picks(filtered_rows, filtered_headers):
 
 def update_manifest_and_latest(today_date, master_output):
     """
-    Save data_latest.json and update manifest.json with all available scan dates.
+    Save data_latest.json and update manifest.json in data/ directory with all available scan dates.
     """
-    # 1. Save data_latest.json
+    os.makedirs(DATA_DIR, exist_ok=True)
+
+    # 1. Save data/data_latest.json
     with open(LATEST_DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(master_output, f, indent=4, ensure_ascii=False)
     print(f"Latest data saved to {LATEST_DATA_FILE}")
 
-    # 2. Collect all available daily json files
+    # 2. Collect all available daily json files in data/
     dates = {today_date}
-    for filename in os.listdir("."):
-        if filename.startswith("data_") and filename.endswith(".json") and filename != LATEST_DATA_FILE:
-            d = filename[5:-5]
-            if re.match(r"^\d{4}-\d{2}-\d{2}$", d):
-                dates.add(d)
+    if os.path.exists(DATA_DIR):
+        for filename in os.listdir(DATA_DIR):
+            if filename.startswith("data_") and filename.endswith(".json") and filename != "data_latest.json":
+                d = filename[5:-5]
+                if re.match(r"^\d{4}-\d{2}-\d{2}$", d):
+                    dates.add(d)
 
     sorted_dates = sorted(list(dates), reverse=True)
 
@@ -713,7 +620,7 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 - **ScanX Candidates:** {total_scanx_stocks}
 - **Passed 52W High Filter:** {len(filtered_rows)} stocks within 10% of 52W High
 - **Top AI Quantitative Pick:** {top_ai_summary}
-- **Data Exports:** [`data_latest.json`](data_latest.json) • [`manifest.json`](manifest.json)
+- **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json)
 
 ---
 
@@ -743,8 +650,8 @@ ScanX NSE Equity Universe
        │
        ▼
 [4] Master Exports
-    • data_YYYY-MM-DD.json + data_latest.json
-    • manifest.json (date index for web dashboard)
+    • data/data_YYYY-MM-DD.json + data/data_latest.json
+    • data/manifest.json (date index for web dashboard)
     • Interactive index.html on GitHub Pages
 ```
 
@@ -790,6 +697,8 @@ def main():
     print("=" * 70)
     print(f"AI Provider: {AI_PROVIDER}")
     print(f"AI Model:    {AI_MODEL}")
+
+    os.makedirs(DATA_DIR, exist_ok=True)
 
     # 1. FETCH DATA FROM SCANX
     print("\nFetching data from ScanX API...")
@@ -923,8 +832,8 @@ def main():
         "ai_top_5_picks": ai_top_5_data,
     }
 
-    # 6. SAVE DAILY JSON, LATEST JSON & MANIFEST
-    filename = f"data_{today_date}.json"
+    # 6. SAVE DAILY JSON, LATEST JSON & MANIFEST IN data/
+    filename = os.path.join(DATA_DIR, f"data_{today_date}.json")
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(master_output, f, indent=4, ensure_ascii=False)
     print(f"\nDaily JSON saved to {filename}")
