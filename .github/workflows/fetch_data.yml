@@ -2,7 +2,8 @@ name: Fetch and Filter ScanX Data
 
 on:
   schedule:
-    # 3:10 PM IST is 09:40 UTC, Monday to Friday (1-5)
+    # 3:10 PM IST = 09:40 UTC
+    # Monday to Friday
     - cron: '40 9 * * 1-5'
 
   # Allows manual testing from the Actions tab
@@ -15,7 +16,6 @@ jobs:
   run-screener:
     runs-on: ubuntu-latest
 
-    # GitHub Secret -> environment variable
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
@@ -52,15 +52,20 @@ jobs:
           python run_screener.py
 
       # --------------------------------------------------
-      # Commit generated JSON
+      # Commit generated JSON + README
       # --------------------------------------------------
       - name: Commit and Push Results
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add data_*.json
+          git add data_*.json README.md
 
-          git diff --staged --quiet || git commit -m "Auto-save filtered ScanX data for $(date +'%Y-%m-%d')"
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update daily stock scanner results $(date +'%Y-%m-%d')"
 
           git push
