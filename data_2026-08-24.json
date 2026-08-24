@@ -1,6 +1,6 @@
 {
     "date": "2026-08-24",
-    "timestamp": "2026-08-24 17:00:10",
+    "timestamp": "2026-08-24 17:13:00",
     "ai_provider": "openrouter",
     "ai_model": "google/gemini-2.5-flash",
     "original_scanx_results": {
@@ -8,7 +8,7 @@
         "remarks": "",
         "tot_rec": 75,
         "tot_pg": 1,
-        "last_resp_time": "24-08-2026 22:29:45",
+        "last_resp_time": "24-08-2026 22:42:38",
         "data": [
             [
                 "NSE",
@@ -1917,7 +1917,7 @@
         "remarks": "",
         "tot_rec": 36,
         "tot_pg": 1,
-        "last_resp_time": "24-08-2026 22:29:45",
+        "last_resp_time": "24-08-2026 22:42:38",
         "data": [
             [
                 "NSE",
@@ -2925,7 +2925,7 @@
         "remarks": "",
         "tot_rec": 5,
         "tot_pg": 1,
-        "last_resp_time": "24-08-2026 22:29:45",
+        "last_resp_time": "24-08-2026 22:42:38",
         "data": [
             [
                 "NSE",
@@ -3137,10 +3137,91 @@
         "SMVD"
     ],
     "ai_top_5_picks": {
-        "top_5": [],
-        "overall_market_note": "AI analysis unavailable.",
-        "methodology_note": "AI API request failed. Rule-based results are still available.",
-        "generated_by": "openrouter/google/gemini-2.5-flash",
-        "error": "OPENROUTER_API_KEY environment variable is not set. Add OPENROUTER_API_KEY to GitHub Actions Secrets."
+        "top_5": [
+            {
+                "rank": 1,
+                "symbol": "SHANTIGEAR",
+                "display_symbol": "Shanthi Gears",
+                "score": 92,
+                "why_it_was_selected": "Shanthi Gears shows exceptional price momentum with a very high percentage change, supported by strong volume and a healthy RSI. Its proximity to the 52-week high further confirms its upward trend.",
+                "key_strengths": [
+                    "Very strong price percentage change (18.25%)",
+                    "High volume confirmation",
+                    "RSI (84.43) indicates strong momentum",
+                    "Relatively close to 52-week high (-7.26%)"
+                ],
+                "risk_flags": [
+                    "RSI is quite high, suggesting potential short-term overextension"
+                ],
+                "momentum_assessment": "Excellent momentum driven by significant price appreciation and robust volume, indicating strong buyer interest. The high RSI should be monitored for potential pullbacks."
+            },
+            {
+                "rank": 2,
+                "symbol": "BALUFORGE",
+                "display_symbol": "Balu Forge Industries",
+                "score": 89,
+                "why_it_was_selected": "Balu Forge Industries exhibits very strong price momentum with a high percentage change and outstanding volume, indicating significant market interest. Its RSI is high, confirming strong upward pressure.",
+                "key_strengths": [
+                    "Very strong price percentage change (13.83%)",
+                    "Exceptional volume confirmation",
+                    "RSI (83.56) indicates strong momentum",
+                    "Within 10% of 52-week high (-9.3%)"
+                ],
+                "risk_flags": [
+                    "RSI is very high, suggesting potential for short-term overextension"
+                ],
+                "momentum_assessment": "Strong momentum with a notable price surge and massive volume. The high RSI points to a powerful trend, but also warrants caution for potential short-term corrections."
+            },
+            {
+                "rank": 3,
+                "symbol": "KRBL",
+                "display_symbol": "KRBL",
+                "score": 85,
+                "why_it_was_selected": "KRBL demonstrates strong price momentum with a significant percentage change and good volume. Its RSI is very high, indicating strong buying interest, and it's within a reasonable distance from its 52-week high.",
+                "key_strengths": [
+                    "Strong price percentage change (7.58%)",
+                    "Good volume confirmation",
+                    "Very high RSI (80.04) confirming strong momentum",
+                    "Within 10% of 52-week high (-8.6%)"
+                ],
+                "risk_flags": [
+                    "Very high RSI could indicate short-term overbought conditions"
+                ],
+                "momentum_assessment": "Robust momentum with a clear upward trend supported by price and volume. The extremely high RSI suggests strong bullish sentiment but also a need for careful monitoring."
+            },
+            {
+                "rank": 4,
+                "symbol": "SIEMENS",
+                "display_symbol": "Siemens",
+                "score": 82,
+                "why_it_was_selected": "Siemens shows strong price appreciation with good volume and is trading very close to its 52-week high. The RSI confirms healthy momentum without being excessively overextended.",
+                "key_strengths": [
+                    "Strong price percentage change (4.95%)",
+                    "Good volume confirmation",
+                    "Very close to 52-week high (-0.1%)",
+                    "Healthy RSI (69.47) indicating strong momentum"
+                ],
+                "risk_flags": [],
+                "momentum_assessment": "Solid momentum with price nearing its 52-week high, supported by good volume and a strong, but not extreme, RSI. This indicates a sustained upward trend."
+            },
+            {
+                "rank": 5,
+                "symbol": "REDINGTON",
+                "display_symbol": "Redington",
+                "score": 80,
+                "why_it_was_selected": "Redington displays strong price momentum with a good percentage change and significant volume. It is trading close to its 52-week high, and its RSI confirms strong buying interest.",
+                "key_strengths": [
+                    "Strong price percentage change (4.15%)",
+                    "Significant volume confirmation",
+                    "Close to 52-week high (-1.54%)",
+                    "Strong RSI (71.06) indicating momentum"
+                ],
+                "risk_flags": [],
+                "momentum_assessment": "Good momentum with a clear upward trajectory, supported by price action, volume, and a strong RSI. The stock is performing well and maintaining its gains near its yearly high."
+            }
+        ],
+        "overall_market_note": "The selected stocks demonstrate strong individual momentum, with several showing significant price appreciation and volume confirmation. A few candidates exhibit very high RSI values, which, while confirming strong momentum, also suggest potential for short-term overextension. Investors should consider broader market conditions and individual risk tolerance.",
+        "methodology_note": "Stocks were ranked based on a composite score considering price momentum (percentage change), volume confirmation, proximity to 52-week high, and RSI. Higher weight was given to a combination of strong price and volume, and being close to the 52-week high. While high RSI confirms momentum, extremely high values were noted as potential short-term overextension. Secondary factors like PE and market capitalization were considered for tie-breaking or nuanced assessment.",
+        "generated_by": "openrouter/google/gemini-2.5-flash"
     }
 }
