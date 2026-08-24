@@ -59,7 +59,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add data_*.json README.md
+          git add data_*.json manifest.json README.md index.html .gitignore
 
           if git diff --staged --quiet; then
             echo "No changes to commit."
