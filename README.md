@@ -61,6 +61,7 @@ Validated AI Top 5
        │
        ▼
 Daily JSON + README Dashboard
+```text
 
 ## Daily Results
 
