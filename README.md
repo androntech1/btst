@@ -21,6 +21,47 @@ Stocks passing those conditions are then ranked in two ways:
 
 Each stock has a **Chart ↗** link that opens its NSE chart on TradingView.
 
+## 🏗️ Scanner Architecture
+
+```text
+ScanX NSE Universe
+       │
+       ▼
+Mechanical Momentum Filter
+(volume ≥ 2× avg, positive price action, RSI ≥ 65)
+       │
+       ▼
+52-Week High Filter
+(LTP within 10% of 52W high via yfinance)
+       │
+       ├──────────────► Rule-Based Top 5
+       │                (closest to 52W high)
+       │
+       ▼
+AI Ranking Layer
+(Gemini via OpenRouter)
+       │
+       ├── Quantitative ranking first
+       │   • price momentum
+       │   • volume confirmation
+       │   • 52W-high proximity
+       │   • RSI / overextension
+       │   • PE & market cap as secondary factors
+       │
+       └── Recent-news verification
+           • results / orders
+           • corporate actions
+           • regulatory developments
+           • upgrades / downgrades
+           • only for supplied candidates
+           • never used to invent candidates
+       │
+       ▼
+Validated AI Top 5
+       │
+       ▼
+Daily JSON + README Dashboard
+
 ## Daily Results
 
 ## 📅 24 August 2026
