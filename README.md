@@ -33,7 +33,7 @@ Each stock has a **Chart ↗** link that opens its NSE chart on TradingView.
 - ScanX candidates: **75**
 - Stocks within 10% of 52-week high: **36**
 - Rule-based Top 5: **5**
-- Gemini AI Top 5: **0**
+- AI Top 5: **0**
 
 ### 📊 Rule-Based Top 5
 
@@ -45,9 +45,9 @@ Each stock has a **Chart ↗** link that opens its NSE chart on TradingView.
 | 4 | **Service Care** | 64.30 | 4.72% | 66.40 | 0.55% | [Chart ↗](https://www.tradingview.com/symbols/NSE-SERVICE/) |
 | 5 | **Siemens** | 4,114.00 | 4.95% | 69.47 | -0.10% | [Chart ↗](https://www.tradingview.com/symbols/NSE-SIEMENS/) |
 
-### 🤖 Gemini AI Top 5
+### 🤖 AI Top 5
 
-Gemini AI analysis was unavailable for this run.
+AI analysis was unavailable for this run.
 
 #### Market Note
 
@@ -55,8 +55,8 @@ AI analysis unavailable.
 
 #### Methodology Note
 
-Gemini API request failed. Rule-based results are still available.
+AI API request failed. Rule-based results are still available.
+
+**AI model:** `openrouter/google/gemini-2.5-flash`
 
 </details>
-
-> Daily results will be added automatically by GitHub Actions.

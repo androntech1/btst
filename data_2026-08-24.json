@@ -1,12 +1,14 @@
 {
     "date": "2026-08-24",
-    "timestamp": "2026-08-24 16:30:15",
+    "timestamp": "2026-08-24 17:00:10",
+    "ai_provider": "openrouter",
+    "ai_model": "google/gemini-2.5-flash",
     "original_scanx_results": {
         "code": 0,
         "remarks": "",
         "tot_rec": 75,
         "tot_pg": 1,
-        "last_resp_time": "24-08-2026 22:00:03",
+        "last_resp_time": "24-08-2026 22:29:45",
         "data": [
             [
                 "NSE",
@@ -1915,7 +1917,7 @@
         "remarks": "",
         "tot_rec": 36,
         "tot_pg": 1,
-        "last_resp_time": "24-08-2026 22:00:03",
+        "last_resp_time": "24-08-2026 22:29:45",
         "data": [
             [
                 "NSE",
@@ -2923,7 +2925,7 @@
         "remarks": "",
         "tot_rec": 5,
         "tot_pg": 1,
-        "last_resp_time": "24-08-2026 22:00:03",
+        "last_resp_time": "24-08-2026 22:29:45",
         "data": [
             [
                 "NSE",
@@ -3137,8 +3139,8 @@
     "ai_top_5_picks": {
         "top_5": [],
         "overall_market_note": "AI analysis unavailable.",
-        "methodology_note": "Gemini API request failed. Rule-based results are still available.",
-        "generated_by": "gemini-3.7-flash",
-        "error": "Gemini API request failed (HTTP 401):\n{\n  \"error\": {\n    \"code\": 401,\n    \"message\": \"Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.\",\n    \"status\": \"UNAUTHENTICATED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\",\n        \"reason\": \"ACCESS_TOKEN_TYPE_UNSUPPORTED\",\n        \"metadata\": {\n          \"service\": \"generativelanguage.googleapis.com\",\n          \"method\": \"google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent\"\n        }\n      }\n    ]\n  }\n}\n"
+        "methodology_note": "AI API request failed. Rule-based results are still available.",
+        "generated_by": "openrouter/google/gemini-2.5-flash",
+        "error": "OPENROUTER_API_KEY environment variable is not set. Add OPENROUTER_API_KEY to GitHub Actions Secrets."
     }
 }
