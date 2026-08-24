@@ -681,155 +681,39 @@ def generate_readme(
     total_scanx_stocks,
 ):
     """
-    Generate a clean, professional README.md with live dashboard links
-    and daily results without duplications.
+    Generate a clean, modern README.md linking directly to the live GitHub Pages dashboard.
     """
-    existing_readme = ""
-    if os.path.exists(README_FILE):
-        with open(README_FILE, "r", encoding="utf-8") as f:
-            existing_readme = f.read()
-
-    # Format human readable date
     date_obj = datetime.strptime(report_date, "%Y-%m-%d")
     date_formatted = date_obj.strftime("%d %B %Y")
-    date_heading = f"## 📅 {date_formatted}"
 
-    # Build today's section
-    day_lines = []
-    day_lines.append(date_heading)
-    day_lines.append("")
-    day_lines.append("<details open>")
-    day_lines.append(f"<summary><strong>Scan Results for {date_formatted}</strong> (Click to toggle)</summary>")
-    day_lines.append("")
-    day_lines.append("### 📈 Scanner Summary")
-    day_lines.append("")
-    day_lines.append(f"- ScanX Momentum Candidates: **{total_scanx_stocks}**")
-    day_lines.append(f"- Within 10% of 52-Week High: **{len(filtered_rows)}**")
-    day_lines.append(f"- Rule-Based Top Picks: **{len(top_5_rows)}**")
-    day_lines.append(f"- AI Ranked Top Picks: **{len(ai_top_5_data.get('top_5', []))}**")
-    day_lines.append("")
+    top_ai = ai_top_5_data.get("top_5", [])
+    top_ai_summary = "Available on live dashboard"
+    if top_ai:
+        pick = top_ai[0]
+        name = pick.get("display_symbol", pick.get("symbol", ""))
+        score = pick.get("score", "-")
+        top_ai_summary = f"**{name}** (AI Score: **{score}/100**)"
 
-    # Rule-Based Table
-    day_lines.append("### 📊 Rule-Based Top 5 (Closest to 52W High)")
-    day_lines.append("")
-    day_lines.append("| Rank | Stock | LTP (₹) | % Change | RSI(14) | Dist from 52W High | TradingView |")
-    day_lines.append("|:---:|:---|:---:|:---:|:---:|:---:|:---:|")
-
-    header_index = {header: index for index, header in enumerate(filtered_headers)}
-    for rank, row in enumerate(top_5_rows, start=1):
-        symbol = row[header_index["Sym"]]
-        display_symbol = row[header_index["DispSym"]]
-        ltp = row[header_index["Ltp"]]
-        pchange = row[header_index["PPerchange"]]
-        rsi = row[header_index["DayRSI14CurrentCandle"]]
-        distance = row[header_index["DistFrom52WkHighPct"]]
-        tv_url = tradingview_url(symbol)
-
-        day_lines.append(
-            f"| {rank} | **{markdown_escape(display_symbol)}** | "
-            f"{format_number(ltp)} | {format_percent(pchange)} | "
-            f"{format_number(rsi)} | {format_percent(distance)} | "
-            f"[Daily Chart ↗]({tv_url}) |"
-        )
-
-    if not top_5_rows:
-        day_lines.append("| - | No stocks passed the rule-based filter | - | - | - | - | - |")
-    day_lines.append("")
-
-    # AI Top 5 Table
-    day_lines.append("### 🤖 AI Quantitative Top 5 Picks")
-    day_lines.append("")
-    ai_top_5 = ai_top_5_data.get("top_5", [])
-
-    if ai_top_5:
-        day_lines.append("| Rank | Stock | AI Score | Momentum Assessment | TradingView |")
-        day_lines.append("|:---:|:---|:---:|:---|:---:|")
-        for pick in ai_top_5:
-            symbol = pick.get("symbol", "")
-            display_symbol = pick.get("display_symbol", symbol)
-            score = pick.get("score", "-")
-            momentum = pick.get("momentum_assessment", "")
-            tv_url = tradingview_url(symbol)
-            day_lines.append(
-                f"| {pick.get('rank', '-')} | **{markdown_escape(display_symbol)}** | "
-                f"**{score}/100** | {markdown_escape(momentum)} | [Daily Chart ↗]({tv_url}) |"
-            )
-        day_lines.append("")
-
-        day_lines.append("#### 🔍 AI Analysis & Context")
-        day_lines.append("")
-        for pick in ai_top_5:
-            display_symbol = pick.get("display_symbol", pick.get("symbol", ""))
-            day_lines.append(f"**{pick.get('rank', '-')}. {markdown_escape(display_symbol)}** — Score: **{pick.get('score', '-')}/100**")
-            
-            why = pick.get("why_it_was_selected", "")
-            if why:
-                day_lines.append(f"- **Rationale:** {markdown_escape(why)}")
-
-            news = pick.get("recent_news", "")
-            if news:
-                day_lines.append(f"- **Recent News:** {markdown_escape(news)}")
-
-            strengths = pick.get("key_strengths", [])
-            if strengths:
-                day_lines.append(f"- **Strengths:** {', '.join([markdown_escape(s) for s in strengths])}")
-
-            risks = pick.get("risk_flags", [])
-            if risks:
-                day_lines.append(f"- **Risk Flags:** {', '.join([markdown_escape(r) for r in risks])}")
-            day_lines.append("")
-    else:
-        day_lines.append("AI analysis was unavailable for this run.")
-        day_lines.append("")
-
-    market_note = ai_top_5_data.get("overall_market_note", "")
-    if market_note:
-        day_lines.append(f"> **Market Context:** {markdown_escape(market_note)}\n")
-
-    generated_by = ai_top_5_data.get("generated_by", f"{AI_PROVIDER}/{AI_MODEL}")
-    day_lines.append(f"*Model: `{markdown_escape(generated_by)}`*\n")
-    day_lines.append("</details>")
-    day_lines.append("")
-
-    today_section_text = "\n".join(day_lines)
-
-    # Extract historical daily sections from existing readme
-    daily_sections = {}
-    if "## 📅 " in existing_readme:
-        sections = re.split(r"(?=\n## 📅 |\A## 📅 )", existing_readme)
-        for sec in sections:
-            sec_clean = sec.strip()
-            if sec_clean.startswith("## 📅 "):
-                match = re.match(r"^## 📅\s*([0-9]{1,2}\s+[A-Za-z]+\s+[0-9]{4})", sec_clean)
-                if match:
-                    sec_date_str = match.group(1)
-                    try:
-                        parsed_dt = datetime.strptime(sec_date_str, "%d %B %Y").strftime("%Y-%m-%d")
-                        # Turn into closed details if it's an older day
-                        if parsed_dt != report_date:
-                            sec_closed = re.sub(r"<details open>", "<details>", sec_clean, flags=re.IGNORECASE)
-                            daily_sections[parsed_dt] = sec_closed
-                    except Exception:
-                        pass
-
-    # Add today's section
-    daily_sections[report_date] = today_section_text
-
-    # Sort dates descending
-    sorted_dates = sorted(daily_sections.keys(), reverse=True)
-    all_daily_content = "\n\n".join(daily_sections[d] for d in sorted_dates)
-
-    # Standard Clean Header
-    header = """# 📈 Daily NSE Momentum Scanner
+    readme_content = f"""# 📈 Daily NSE Momentum Scanner & AI Engine
 
 [![Daily Screener](https://github.com/androntech1/btst/actions/workflows/fetch_data.yml/badge.svg)](https://github.com/androntech1/btst/actions/workflows/fetch_data.yml)
-[![Live Dashboard](https://img.shields.io/badge/Live-Web_Dashboard-blue?style=flat&logo=html5)](index.html)
+[![Live Web Dashboard](https://img.shields.io/badge/Live_Dashboard-androntech1.github.io%2Fbtst-06b6d4?style=flat&logo=googlechrome)](https://androntech1.github.io/btst/)
 
-Automated daily momentum watchlist generated from ScanX screening data, 52-week-high filtering, and AI quantitative ranking with real-time news verification.
+Automated daily momentum scanner for Indian NSE equities featuring 52-week-high breakout filtering, AI quantitative ranking, real-time corporate news verification, and 1-click TradingView charts.
 
-> 🌐 **Interactive Dashboard:** Open [`index.html`](index.html) locally or on GitHub Pages to view real-time sortable tables, AI score meters, and 1-click TradingView charts.
->
-> ⚠️ **Disclaimer:** This tool is for screening and research purposes only, not personalized investment advice. Scores are quantitative ranking signals, not guarantees of profit.
+---
+
+## 🌐 Live Web Dashboard
+
+Access the full interactive dashboard with real-time sortable tables, AI score meters, strength tags, risk flags, and historical scans:
+
+👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
+
+### ⚡ Latest Scan Summary ({date_formatted})
+- **ScanX Candidates:** {total_scanx_stocks}
+- **Passed 52W High Filter:** {len(filtered_rows)} stocks within 10% of 52W High
+- **Top AI Quantitative Pick:** {top_ai_summary}
+- **Data Exports:** [`data_latest.json`](data_latest.json) • [`manifest.json`](manifest.json)
 
 ---
 
@@ -841,7 +725,7 @@ ScanX NSE Equity Universe
        ▼
 [1] Mechanical Momentum Filter
     • Volume ≥ 2× 10-day SMA Volume
-    • Positive Open vs Reference Open (Open > BcOpen)
+    • Positive Open Action (Open > BcOpen)
     • Positive Close Action (LTP > BcClose)
     • Momentum confirmation: RSI(14) ≥ 65
        │
@@ -861,19 +745,37 @@ ScanX NSE Equity Universe
 [4] Master Exports
     • data_YYYY-MM-DD.json + data_latest.json
     • manifest.json (date index for web dashboard)
-    • Clean README.md & Interactive index.html
+    • Interactive index.html on GitHub Pages
 ```
 
 ---
 
-## 📊 Daily Results
+## ⚙️ Setup & Configuration
 
+### Automated Schedule
+- Runs automatically via GitHub Actions **Monday to Friday at 3:10 PM IST** (`10 15 * * 1-5`, `Asia/Kolkata`).
+- Scans data 20 minutes before market close, ideal for BTST / momentum entries.
+
+### Running Locally
+```bash
+pip install -r requirements.txt
+python run_screener.py
+```
+
+### Environment Variables / Secrets
+| Variable | Description | Default |
+|:---|:---|:---|
+| `OPENROUTER_API_KEY` | OpenRouter API Key (Required for AI ranking) | - |
+| `AI_PROVIDER` | AI Provider (`openrouter` or `openai`) | `openrouter` |
+| `AI_MODEL` | AI Model slug | `google/gemini-2.5-flash` |
+
+---
+
+> ⚠️ **Disclaimer:** This tool is for educational, screening, and research purposes only, not personalized investment advice. Scores are quantitative ranking signals, not guarantees of profit.
 """
 
-    final_content = header.strip() + "\n\n" + all_daily_content.strip() + "\n"
-
     with open(README_FILE, "w", encoding="utf-8") as f:
-        f.write(final_content)
+        f.write(readme_content.strip() + "\n")
 
     print(f"README updated successfully: {README_FILE}")
 
