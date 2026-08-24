@@ -24,27 +24,6 @@ SCANX_HEADERS = {
 # ============================================================
 # AI CONFIGURATION
 # ============================================================
-#
-# The AI layer is intentionally provider-agnostic.
-#
-# Current setup:
-#
-#     Provider: OpenRouter
-#     Model:    Google Gemini 2.5 Flash
-#
-# To change models on OpenRouter, you normally only need to
-# change AI_MODEL.
-#
-# Example:
-#
-#     AI_PROVIDER = "openrouter"
-#     AI_MODEL = "google/gemini-2.5-flash"
-#
-# Later, if you want to use an OpenAI-compatible provider,
-# the AI function is isolated so the rest of the scanner
-# does not need to change.
-#
-# ============================================================
 
 AI_PROVIDER = (
     os.getenv(
@@ -150,11 +129,6 @@ def tradingview_url(symbol):
     Opens TradingView's chart page directly with:
         Exchange: NSE
         Timeframe: 1 Day
-
-    Example:
-        RELIANCE
-        ->
-        https://www.tradingview.com/chart/?symbol=NSE%3ARELIANCE&interval=D
     """
 
     clean_symbol = str(symbol).strip().upper()
@@ -204,7 +178,11 @@ def format_number(value, decimals=2):
 
     try:
         return f"{float(value):,.{decimals}f}"
-    except (TypeError, ValueError):
+
+    except (
+        TypeError,
+        ValueError,
+    ):
         return "-"
 
 
@@ -215,7 +193,11 @@ def format_percent(value):
 
     try:
         return f"{float(value):.2f}%"
-    except (TypeError, ValueError):
+
+    except (
+        TypeError,
+        ValueError,
+    ):
         return "-"
 
 
@@ -224,7 +206,12 @@ def get_stock_from_row(row, headers):
     Convert a ScanX row into a dictionary.
     """
 
-    return dict(zip(headers, row))
+    return dict(
+        zip(
+            headers,
+            row,
+        )
+    )
 
 
 # ============================================================
@@ -254,6 +241,9 @@ AI_RESPONSE_SCHEMA = {
                     "why_it_was_selected": {
                         "type": "string",
                     },
+                    "recent_news": {
+                        "type": "string",
+                    },
                     "key_strengths": {
                         "type": "array",
                         "items": {
@@ -276,6 +266,7 @@ AI_RESPONSE_SCHEMA = {
                     "display_symbol",
                     "score",
                     "why_it_was_selected",
+                    "recent_news",
                     "key_strengths",
                     "risk_flags",
                     "momentum_assessment",
@@ -311,11 +302,18 @@ def build_ai_prompt(ai_stocks):
     Build the quantitative ranking prompt.
 
     The model is explicitly instructed to operate only on the
-    supplied data and never invent candidates.
+    supplied candidates for quantitative ranking.
+
+    If web search is available, the model may use it only for
+    recent company-specific context.
     """
+
+    current_date = datetime.now().strftime("%Y-%m-%d")
 
     return f"""
 You are a quantitative stock-screening assistant.
+
+Today's date is {current_date}.
 
 Your task is to rank Indian NSE stocks for a DAILY MOMENTUM
 WATCHLIST.
@@ -341,10 +339,10 @@ STRICT DATA INTEGRITY RULES
 - NEVER modify a stock symbol.
 - NEVER create a stock that is not in the input.
 - Treat the supplied numerical data as authoritative.
-- Do not use outside company knowledge.
-- Do not use news.
+- Do not change, reinterpret, or fabricate numerical values.
+- Do not use outside company knowledge for the quantitative
+  ranking.
 - Do not use analyst opinions.
-- Do not use information that is not present in the supplied data.
 - Do not make claims about future events.
 - Do not predict with certainty.
 - Do not guarantee profit.
@@ -352,6 +350,95 @@ STRICT DATA INTEGRITY RULES
   "sure shot", "certain profit", or "risk-free".
 - This is a quantitative ranking/watchlist, NOT personalized
   investment advice.
+
+============================================================
+RECENT NEWS / CORPORATE ACTION CHECK
+============================================================
+
+If a web search tool is available, use it briefly to check
+recent information specifically related to the supplied
+candidate symbols.
+
+Search ONLY for symbols that are actually present in the
+candidate data.
+
+The purpose of the search is NOT to discover new stocks and
+NOT to replace the quantitative screening.
+
+The purpose is to identify recent company-specific information
+that may help explain today's price or volume movement.
+
+Examples include:
+
+- Recent quarterly/company results.
+- Orders or major contracts.
+- Corporate announcements.
+- Management announcements.
+- Regulatory actions or issues.
+- Credit-rating changes.
+- Stock-specific upgrades or downgrades.
+- Material corporate actions.
+- Other clearly relevant recent company-specific developments.
+
+IMPORTANT NEWS RULES:
+
+- NEVER use news to introduce a new candidate.
+- NEVER add a stock that is not present in the supplied data.
+- NEVER invent or assume news.
+- NEVER speculate about the reason for a price move.
+- Only mention information actually found through the search.
+- Prefer recent information.
+- Prefer primary or highly reliable sources when available.
+- Do not treat generic sector news as company-specific news
+  unless it is clearly relevant to the individual company.
+- Do not let news override the supplied quantitative data.
+- Quantitative signals remain the PRIMARY basis for ranking.
+- News is secondary context only.
+- Keep news summaries brief.
+- Do not copy long passages from sources.
+- If web search is unavailable, explicitly say:
+  "Recent-news verification unavailable."
+- If no relevant recent company-specific news is found,
+  explicitly say:
+  "No relevant recent company-specific news found."
+- If search results are unclear or conflicting, say so rather
+  than presenting uncertain information as fact.
+
+The web search should be brief.
+
+Do not perform unnecessary broad market research.
+
+============================================================
+RECENT NEWS OUTPUT
+============================================================
+
+Each selected stock has a dedicated "recent_news" field.
+
+Use that field ONLY for concise recent company-specific news
+context.
+
+Examples:
+
+"Company announced a major order on 22 Aug 2026."
+
+"Q1 results were reported recently; revenue increased
+year-over-year."
+
+"No relevant recent company-specific news found."
+
+"Recent-news verification unavailable."
+
+Do NOT put full news paragraphs into risk_flags.
+
+risk_flags must remain focused on actual risks or cautionary
+signals visible from the supplied data, such as:
+
+- Very high RSI / possible short-term extension.
+- Weak price-volume confirmation relative to other candidates.
+- Large distance from 52-week high relative to peers.
+- High valuation when PE is available.
+- Missing data.
+- Other quantitative caution signals.
 
 ============================================================
 RANKING PRINCIPLES
@@ -387,7 +474,7 @@ overextension.
 Therefore:
 
 - Do NOT automatically rank the highest RSI stock first.
-- Consider whether the momentum appears confirmed by volume,
+- Consider whether momentum is confirmed by volume,
   price action and proximity to the 52-week high.
 - Penalize obvious signs of excessive short-term extension
   when appropriate.
@@ -422,6 +509,9 @@ Use approximately these priorities:
 5. Positive price action
 6. PE and market capitalization as secondary factors
 
+Recent verified company-specific news may be included as
+context, but MUST NOT become the primary scoring factor.
+
 ============================================================
 OUTPUT
 ============================================================
@@ -435,6 +525,7 @@ For each selected stock provide:
 - display_symbol
 - score
 - why_it_was_selected
+- recent_news
 - key_strengths
 - risk_flags
 - momentum_assessment
@@ -444,6 +535,30 @@ Also provide:
 - overall_market_note
 - methodology_note
 - generated_by
+
+For recent_news:
+
+- If relevant recent news was found, summarize it briefly.
+- If no relevant recent news was found, state that plainly.
+- If web search was unavailable, state that plainly.
+- Do not speculate.
+
+For risk_flags:
+
+- Keep entries short and risk-focused.
+- Do NOT put full news summaries here.
+- Do NOT use risk_flags as a general news field.
+
+For why_it_was_selected:
+
+- Focus primarily on the quantitative reasons for selection.
+- You may briefly reference verified news context if useful.
+
+For momentum_assessment:
+
+- Focus on the quantitative momentum setup.
+- Mention news only when it materially helps explain the
+  current move and was actually verified.
 
 Return ONLY valid JSON matching the supplied response schema.
 
@@ -470,9 +585,6 @@ def get_ai_api_configuration():
     """
     Return the API URL, API key and headers based on the
     selected AI provider.
-
-    This keeps provider-specific configuration isolated from
-    the rest of the scanner.
     """
 
     if AI_PROVIDER == "openrouter":
@@ -488,8 +600,8 @@ def get_ai_api_configuration():
         headers = {
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
-            "HTTP-Referer": ("https://github.com/"),
-            "X-Title": ("Daily NSE Momentum Scanner"),
+            "HTTP-Referer": "https://github.com/",
+            "X-Title": "Daily NSE Momentum Scanner",
         }
 
         return (
@@ -527,10 +639,6 @@ def extract_ai_text(response_json):
     """
     Extract the assistant's text from an OpenAI-compatible
     chat completion response.
-
-    OpenRouter and OpenAI both use the standard:
-        choices[0].message.content
-    structure for normal chat completions.
     """
 
     try:
@@ -553,8 +661,6 @@ def extract_ai_text(response_json):
     if content is None:
         raise RuntimeError("AI returned an empty response.")
 
-    # Some providers may return structured content rather
-    # than a plain string. Handle that defensively.
     if isinstance(content, str):
         return content
 
@@ -599,7 +705,6 @@ def parse_ai_json(text):
 
     clean_text = str(text).strip()
 
-    # Remove accidental code fences.
     if clean_text.startswith("```"):
 
         lines = clean_text.splitlines()
@@ -637,8 +742,12 @@ def get_ai_top_5_picks(
     OpenAI-compatible provider and ask it to independently
     rank the best 5 candidates.
 
-    Current default:
-        OpenRouter + Google Gemini 2.5 Flash
+    OpenRouter:
+        Quantitative ranking + optional server-side web search.
+
+    OpenAI:
+        Quantitative ranking without the OpenRouter web-search
+        tool.
     """
 
     # --------------------------------------------------------
@@ -668,7 +777,7 @@ def get_ai_top_5_picks(
             "methodology_note": (
                 "AI ranking was not required because there were " "no candidates."
             ),
-            "generated_by": (AI_MODEL),
+            "generated_by": AI_MODEL,
         }
 
     # --------------------------------------------------------
@@ -724,7 +833,7 @@ def get_ai_top_5_picks(
     )
 
     # --------------------------------------------------------
-    # OpenAI-compatible request
+    # Base request
     # --------------------------------------------------------
 
     payload = {
@@ -754,11 +863,55 @@ def get_ai_top_5_picks(
         },
     }
 
+    # --------------------------------------------------------
+    # OpenRouter web search
+    # --------------------------------------------------------
+    #
+    # OpenRouter currently provides a server-side web search
+    # tool using:
+    #
+    #     {"type": "openrouter:web_search"}
+    #
+    # This lets the model decide when it needs to search.
+    #
+    # We deliberately keep the search budget limited because
+    # this is a daily scanner and news is secondary context.
+    #
+    # IMPORTANT:
+    # Do not send this OpenRouter-specific tool to OpenAI.
+    # --------------------------------------------------------
+
+    if AI_PROVIDER == "openrouter":
+
+        payload["tools"] = [
+            {
+                "type": "openrouter:web_search",
+                "parameters": {
+                    "engine": "auto",
+                    "max_results": 5,
+                    "max_total_results": 15,
+                },
+            }
+        ]
+
+        payload["max_tool_calls"] = 5
+
+    # --------------------------------------------------------
+    # OpenAI provider
+    # --------------------------------------------------------
+    #
+    # No OpenRouter-specific search tool is attached here.
+    #
+    # The prompt explicitly tells the model to state that
+    # recent-news verification is unavailable if it cannot
+    # access web search.
+    # --------------------------------------------------------
+
     response = requests.post(
         api_url,
         headers=headers,
         json=payload,
-        timeout=120,
+        timeout=180,
     )
 
     if not response.ok:
@@ -879,10 +1032,66 @@ def get_ai_top_5_picks(
                 actual_display_symbol = str(matching_rows[0][display_index]).strip()
 
         except ValueError:
+
             pass
 
         pick["symbol"] = symbol
+
         pick["display_symbol"] = actual_display_symbol
+
+        # ----------------------------------------------------
+        # Ensure recent_news exists.
+        # ----------------------------------------------------
+
+        recent_news = pick.get(
+            "recent_news",
+            "",
+        )
+
+        if recent_news is None:
+            recent_news = ""
+
+        pick["recent_news"] = str(recent_news).strip()
+
+        # ----------------------------------------------------
+        # Ensure risk_flags is a clean list.
+        # ----------------------------------------------------
+
+        risk_flags = pick.get(
+            "risk_flags",
+            [],
+        )
+
+        if not isinstance(
+            risk_flags,
+            list,
+        ):
+
+            risk_flags = [str(risk_flags)]
+
+        pick["risk_flags"] = [
+            str(item).strip() for item in risk_flags if str(item).strip()
+        ]
+
+        # ----------------------------------------------------
+        # Ensure key_strengths is a clean list.
+        # ----------------------------------------------------
+
+        key_strengths = pick.get(
+            "key_strengths",
+            [],
+        )
+
+        if not isinstance(
+            key_strengths,
+            list,
+        ):
+
+            key_strengths = [str(key_strengths)]
+
+        pick["key_strengths"] = [
+            str(item).strip() for item in key_strengths if str(item).strip()
+        ]
 
         # ----------------------------------------------------
         # Clamp score to 0-100.
@@ -906,6 +1115,7 @@ def get_ai_top_5_picks(
             )
 
             if score.is_integer():
+
                 score = int(score)
 
             pick["score"] = score
@@ -935,10 +1145,20 @@ def get_ai_top_5_picks(
     )
 
     # --------------------------------------------------------
-    # Limit to five.
+    # Re-number ranks ourselves.
+    #
+    # This prevents inconsistent AI ranks after validation
+    # removes an invalid or duplicate symbol.
     # --------------------------------------------------------
 
     validated_top_5 = validated_top_5[:5]
+
+    for index, pick in enumerate(
+        validated_top_5,
+        start=1,
+    ):
+
+        pick["rank"] = index
 
     ai_result["top_5"] = validated_top_5
 
@@ -967,8 +1187,8 @@ def generate_readme(
     """
     Generate the complete README.md dashboard.
 
-    Each execution replaces/updates the section for the current
-    date while preserving all previous daily sections.
+    Each execution replaces/updates the section for the
+    current date while preserving previous daily sections.
     """
 
     existing_readme = ""
@@ -1011,16 +1231,18 @@ def generate_readme(
 
     day_lines.append(f"- ScanX candidates: **{total_scanx_stocks}**")
 
-    day_lines.append(f"- Stocks within 10% of 52-week high: **{len(filtered_rows)}**")
+    day_lines.append(
+        f"- Stocks within 10% of 52-week high: " f"**{len(filtered_rows)}**"
+    )
 
     day_lines.append(f"- Rule-based Top 5: **{len(top_5_rows)}**")
 
-    day_lines.append(f"- AI Top 5: **{len(ai_top_5_data.get('top_5', []))}**")
+    day_lines.append(f"- AI Top 5: " f"**{len(ai_top_5_data.get('top_5', []))}**")
 
     day_lines.append("")
 
     # --------------------------------------------------------
-    # Rule-based Top 5
+    # Rule-Based Top 5
     # --------------------------------------------------------
 
     day_lines.append("### 📊 Rule-Based Top 5")
@@ -1164,6 +1386,10 @@ def generate_readme(
                 f"— Score: **{pick.get('score', '-')}**"
             )
 
+            # ------------------------------------------------
+            # Why selected
+            # ------------------------------------------------
+
             why = pick.get(
                 "why_it_was_selected",
                 "",
@@ -1174,6 +1400,25 @@ def generate_readme(
                 day_lines.append("")
 
                 day_lines.append(f"**Why selected:** " f"{markdown_escape(why)}")
+
+            # ------------------------------------------------
+            # Recent News
+            # ------------------------------------------------
+
+            recent_news = pick.get(
+                "recent_news",
+                "",
+            )
+
+            if recent_news:
+
+                day_lines.append("")
+
+                day_lines.append(f"**Recent news:** " f"{markdown_escape(recent_news)}")
+
+            # ------------------------------------------------
+            # Key strengths
+            # ------------------------------------------------
 
             strengths = pick.get(
                 "key_strengths",
@@ -1189,6 +1434,10 @@ def generate_readme(
                 for strength in strengths:
 
                     day_lines.append(f"- {markdown_escape(strength)}")
+
+            # ------------------------------------------------
+            # Risk flags
+            # ------------------------------------------------
 
             risks = pick.get(
                 "risk_flags",
@@ -1326,6 +1575,8 @@ Stocks passing those conditions are then ranked in two ways:
 1. **Rule-Based Top 5** — sorted by proximity to the 52-week high.
 2. **AI Top 5** — independently ranked using the supplied quantitative fields.
 
+When web search is available, the AI may also check recent company-specific news to provide context for the price/volume move. News does not replace or override the quantitative ranking.
+
 Each stock has a **Daily Chart ↗** link that opens its NSE chart directly on TradingView using the **1D / Daily timeframe**.
 
 ## Daily Results
@@ -1395,7 +1646,9 @@ Each stock has a **Daily Chart ↗** link that opens its NSE chart directly on T
 def main():
 
     print("=" * 70)
+
     print("DAILY STOCK SCANNER")
+
     print("=" * 70)
 
     # --------------------------------------------------------
@@ -1682,8 +1935,8 @@ def main():
     master_output = {
         "date": now.strftime("%Y-%m-%d"),
         "timestamp": now.strftime("%Y-%m-%d %H:%M:%S"),
-        "ai_provider": (AI_PROVIDER),
-        "ai_model": (AI_MODEL),
+        "ai_provider": AI_PROVIDER,
+        "ai_model": AI_MODEL,
         "original_scanx_results": (original_data),
         "filtered_52w_results": (filtered_data),
         "top_5_picks": (top_5_data),
