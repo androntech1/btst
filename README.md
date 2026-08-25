@@ -14,8 +14,8 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
 ### ⚡ Latest Scan Summary (25 August 2026)
-- **ScanX Candidates:** 27
-- **Passed 52W High Filter:** 16 stocks within 10% of 52W High
+- **ScanX Candidates:** 31
+- **Passed 52W High Filter:** 18 stocks within 10% of 52W High
 - **Top AI Quantitative Pick:** Available on live dashboard
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json)
 
