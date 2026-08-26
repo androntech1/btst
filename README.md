@@ -13,11 +13,11 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (24 August 2026)
-- **ScanX Candidates:** 75
-- **Passed 52W High Filter:** 36 stocks within 10% of 52W High
-- **Top AI Quantitative Pick:** **Siemens** (AI Score: **92/100**)
-- **Data Exports:** [`data_latest.json`](data_latest.json) • [`manifest.json`](manifest.json)
+### ⚡ Latest Scan Summary (25 August 2026)
+- **ScanX Candidates:** 31
+- **Passed 52W High Filter:** 18 stocks within 10% of 52W High
+- **Top AI Quantitative Pick:** Available on live dashboard
+- **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json)
 
 ---
 
@@ -47,8 +47,8 @@ ScanX NSE Equity Universe
        │
        ▼
 [4] Master Exports
-    • data_YYYY-MM-DD.json + data_latest.json
-    • manifest.json (date index for web dashboard)
+    • data/data_YYYY-MM-DD.json + data/data_latest.json
+    • data/manifest.json (date index for web dashboard)
     • Interactive index.html on GitHub Pages
 ```
 
