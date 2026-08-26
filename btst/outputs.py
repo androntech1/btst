@@ -63,17 +63,24 @@ def update_manifest_and_latest(today_date, processed, raw):
             json_str = json.dumps(processed, separators=(",", ":"), ensure_ascii=False)
             manifest_str = json.dumps(manifest_data, separators=(",", ":"), ensure_ascii=False)
 
+            # Greedy, single-line match: the assignment is always written as one physical
+            # line ending in "};", so match to the LAST ";" on that line. A non-greedy
+            # DOTALL match (the previous approach) stops at the first "};" it finds, which
+            # can occur *inside* a string value (e.g. an AI error message containing nested
+            # JSON) and truncates the blob, leaving prior runs' data concatenated after it.
+            # The replacement is passed as a function so backslash escapes inside json_str
+            # (e.g. \") aren't misread as regex backreferences by re.sub.
             html_content = re.sub(
-                r"window\.__EMBEDDED_DATA__\s*=\s*\{.*?\};",
-                f"window.__EMBEDDED_DATA__ = {json_str};",
+                r"window\.__EMBEDDED_DATA__\s*=\s*.*;",
+                lambda _: f"window.__EMBEDDED_DATA__ = {json_str};",
                 html_content,
-                flags=re.DOTALL,
+                count=1,
             )
             html_content = re.sub(
-                r"window\.__EMBEDDED_MANIFEST__\s*=\s*\{.*?\};",
-                f"window.__EMBEDDED_MANIFEST__ = {manifest_str};",
+                r"window\.__EMBEDDED_MANIFEST__\s*=\s*.*;",
+                lambda _: f"window.__EMBEDDED_MANIFEST__ = {manifest_str};",
                 html_content,
-                flags=re.DOTALL,
+                count=1,
             )
 
             with open(INDEX_HTML, "w", encoding="utf-8") as f:
