@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (27 August 2026)
-- **ScanX Candidates:** 39
-- **Passed 52W High Filter:** 22 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **INOX India** (Composite: **79.1/100**)
+### ⚡ Latest Scan Summary (28 August 2026)
+- **ScanX Candidates:** 49
+- **Passed 52W High Filter:** 26 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Shyam Metalics & Energy** (Composite: **76.1/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
