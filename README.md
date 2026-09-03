@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (02 September 2026)
-- **ScanX Candidates:** 34
-- **Passed 52W High Filter:** 21 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Windlas Biotech** (Composite: **79.0/100**)
+### ⚡ Latest Scan Summary (03 September 2026)
+- **ScanX Candidates:** 47
+- **Passed 52W High Filter:** 28 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **RBL Bank** (Composite: **91.7/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
