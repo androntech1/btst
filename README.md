@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (08 September 2026)
-- **ScanX Candidates:** 63
-- **Passed 52W High Filter:** 37 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Mishra Dhatu Nigam** (Composite: **81.7/100**)
+### ⚡ Latest Scan Summary (09 September 2026)
+- **ScanX Candidates:** 54
+- **Passed 52W High Filter:** 26 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Chennai Petroleum Corporation** (Composite: **77.1/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
