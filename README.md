@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (10 September 2026)
-- **ScanX Candidates:** 54
-- **Passed 52W High Filter:** 32 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Kingfa Science & Technology** (Composite: **80.0/100**)
+### ⚡ Latest Scan Summary (11 September 2026)
+- **ScanX Candidates:** 39
+- **Passed 52W High Filter:** 23 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Granules** (Composite: **83.6/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
