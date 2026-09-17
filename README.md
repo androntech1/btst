@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (16 September 2026)
+### ⚡ Latest Scan Summary (17 September 2026)
 - **ScanX Candidates:** 22
-- **Passed 52W High Filter:** 14 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **ARCL Organics Ltd** (Composite: **78.2/100**)
+- **Passed 52W High Filter:** 12 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Asian Star** (Composite: **83.2/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
