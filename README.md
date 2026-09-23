@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (22 September 2026)
-- **ScanX Candidates:** 43
-- **Passed 52W High Filter:** 21 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Engineers India** (Composite: **83.2/100**)
+### ⚡ Latest Scan Summary (23 September 2026)
+- **ScanX Candidates:** 54
+- **Passed 52W High Filter:** 31 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Premier Polyfilm** (Composite: **82.7/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
