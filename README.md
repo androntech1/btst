@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (24 September 2026)
-- **ScanX Candidates:** 46
-- **Passed 52W High Filter:** 25 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **South Indian Bank** (Composite: **84.6/100**)
+### ⚡ Latest Scan Summary (25 September 2026)
+- **ScanX Candidates:** 48
+- **Passed 52W High Filter:** 21 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Aether Industries** (Composite: **86.6/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
