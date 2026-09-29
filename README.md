@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (28 September 2026)
-- **ScanX Candidates:** 45
-- **Passed 52W High Filter:** 22 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Bliss GVS Pharma** (Composite: **90.2/100**)
+### ⚡ Latest Scan Summary (29 September 2026)
+- **ScanX Candidates:** 31
+- **Passed 52W High Filter:** 16 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Fermenta Biotech** (Composite: **72.6/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
