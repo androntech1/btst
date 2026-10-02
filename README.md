@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (01 October 2026)
+### ⚡ Latest Scan Summary (02 October 2026)
 - **ScanX Candidates:** 27
 - **Passed 52W High Filter:** 17 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Global Pet Industries** (Composite: **82.7/100**)
+- **Top Rule-Based Pick:** **Global Pet Industries** (Composite: **84.7/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
