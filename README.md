@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (05 October 2026)
-- **ScanX Candidates:** 26
+### ⚡ Latest Scan Summary (06 October 2026)
+- **ScanX Candidates:** 34
 - **Passed 52W High Filter:** 18 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Bhartiya International** (Composite: **76.0/100**)
+- **Top Rule-Based Pick:** **Sky Gold And Diamonds** (Composite: **75.4/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
