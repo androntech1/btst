@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (13 October 2026)
-- **ScanX Candidates:** 28
+### ⚡ Latest Scan Summary (14 October 2026)
+- **ScanX Candidates:** 37
 - **Passed 52W High Filter:** 15 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Goodluck India** (Composite: **70.3/100**)
+- **Top Rule-Based Pick:** **Lakshmi Mills** (Composite: **83.3/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
