@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (15 October 2026)
-- **ScanX Candidates:** 28
-- **Passed 52W High Filter:** 10 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **South Indian Bank** (Composite: **79.3/100**)
+### ⚡ Latest Scan Summary (16 October 2026)
+- **ScanX Candidates:** 29
+- **Passed 52W High Filter:** 19 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Shiv Aum Steels** (Composite: **91.3/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
