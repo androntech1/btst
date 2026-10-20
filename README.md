@@ -13,7 +13,7 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (19 October 2026)
+### ⚡ Latest Scan Summary (20 October 2026)
 - **ScanX Candidates:** 22
 - **Passed 52W High Filter:** 15 stocks within 10% of 52W High
 - **Top Rule-Based Pick:** **Swarnsarita Gems** (Composite: **80.5/100**)
