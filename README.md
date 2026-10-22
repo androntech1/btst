@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (21 October 2026)
-- **ScanX Candidates:** 17
-- **Passed 52W High Filter:** 7 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Global Education** (Composite: **71.7/100**)
+### ⚡ Latest Scan Summary (22 October 2026)
+- **ScanX Candidates:** 8
+- **Passed 52W High Filter:** 4 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Indian Hotels Company** (Composite: **79.3/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
