@@ -1,0 +1,229 @@
+{
+    "date": "2026-10-26",
+    "timestamp": "2026-10-26 16:18:04",
+    "ai_enabled": true,
+    "ai_provider": "openrouter",
+    "ai_model": "google/gemini-2.5-flash",
+    "counts": {
+        "scanx_universe": 6,
+        "near_52w": 3
+    },
+    "candidates": [
+        {
+            "symbol": "PERMAGN",
+            "name": "Permanent Magnets",
+            "ltp": 1028.25,
+            "change": 171.35000000000002,
+            "pct_change": 19.996499008052286,
+            "volume": 175480.0,
+            "rsi": 69.10239,
+            "pe": 59.91,
+            "mcap_cr": 884.135929725,
+            "open": 1010.95,
+            "bc_open": 891.0,
+            "bc_close": 856.9,
+            "wk52_high": 1028.25,
+            "dist_52w_pct": 0.0,
+            "technicals": {
+                "pivot": 864.45,
+                "r1": 893.3,
+                "s1": 828.05,
+                "sma20": 868.48,
+                "ext_above_sma20_pct": 18.4,
+                "atr_pct": 5.31,
+                "vol_surge": 27.68
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +18% above 20D avg"
+            ],
+            "score": 77.0
+        },
+        {
+            "symbol": "DRREDDY",
+            "name": "Dr Reddys Laboratories",
+            "ltp": 1310.9,
+            "change": 81.40000000000009,
+            "pct_change": 6.620577470516477,
+            "volume": 10003270.0,
+            "rsi": 70.40072,
+            "pe": 32.11,
+            "mcap_cr": 109418.23856065002,
+            "open": 1260.0,
+            "bc_open": 1236.2,
+            "bc_close": 1229.5,
+            "wk52_high": 1414.9,
+            "dist_52w_pct": -7.35,
+            "technicals": {
+                "pivot": 1231.9,
+                "r1": 1248.2,
+                "s1": 1213.2,
+                "sma20": 1225.43,
+                "ext_above_sma20_pct": 6.98,
+                "atr_pct": 2.52,
+                "vol_surge": 6.04
+            },
+            "next_event": {
+                "type": "earnings",
+                "date": "2027-01-21",
+                "days_away": 87,
+                "direction": "two-sided (results volatility)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [],
+            "score": 64.7
+        },
+        {
+            "symbol": "SSWL",
+            "name": "Steel Strips Wheels",
+            "ltp": 532.25,
+            "change": 63.5,
+            "pct_change": 13.546666666666667,
+            "volume": 36618655.0,
+            "rsi": 78.518295,
+            "pe": 25.13,
+            "mcap_cr": 8370.435213625,
+            "open": 468.7,
+            "bc_open": 391.0,
+            "bc_close": 468.75,
+            "wk52_high": 558.7,
+            "dist_52w_pct": -4.73,
+            "technicals": {
+                "pivot": 438.55,
+                "r1": 498.95,
+                "s1": 408.35,
+                "sma20": 414.7,
+                "ext_above_sma20_pct": 28.34,
+                "atr_pct": 5.61,
+                "vol_surge": 13.93
+            },
+            "next_event": {
+                "type": "ex_dividend",
+                "date": "2026-10-30",
+                "days_away": 4,
+                "direction": "gaps down (long forgoes the dividend)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +28% above 20D avg"
+            ],
+            "score": 62.2
+        }
+    ],
+    "rule_based_top_5": [
+        {
+            "symbol": "PERMAGN",
+            "name": "Permanent Magnets",
+            "ltp": 1028.25,
+            "change": 171.35000000000002,
+            "pct_change": 19.996499008052286,
+            "volume": 175480.0,
+            "rsi": 69.10239,
+            "pe": 59.91,
+            "mcap_cr": 884.135929725,
+            "open": 1010.95,
+            "bc_open": 891.0,
+            "bc_close": 856.9,
+            "wk52_high": 1028.25,
+            "dist_52w_pct": 0.0,
+            "technicals": {
+                "pivot": 864.45,
+                "r1": 893.3,
+                "s1": 828.05,
+                "sma20": 868.48,
+                "ext_above_sma20_pct": 18.4,
+                "atr_pct": 5.31,
+                "vol_surge": 27.68
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +18% above 20D avg"
+            ],
+            "score": 77.0
+        },
+        {
+            "symbol": "DRREDDY",
+            "name": "Dr Reddys Laboratories",
+            "ltp": 1310.9,
+            "change": 81.40000000000009,
+            "pct_change": 6.620577470516477,
+            "volume": 10003270.0,
+            "rsi": 70.40072,
+            "pe": 32.11,
+            "mcap_cr": 109418.23856065002,
+            "open": 1260.0,
+            "bc_open": 1236.2,
+            "bc_close": 1229.5,
+            "wk52_high": 1414.9,
+            "dist_52w_pct": -7.35,
+            "technicals": {
+                "pivot": 1231.9,
+                "r1": 1248.2,
+                "s1": 1213.2,
+                "sma20": 1225.43,
+                "ext_above_sma20_pct": 6.98,
+                "atr_pct": 2.52,
+                "vol_surge": 6.04
+            },
+            "next_event": {
+                "type": "earnings",
+                "date": "2027-01-21",
+                "days_away": 87,
+                "direction": "two-sided (results volatility)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [],
+            "score": 64.7
+        },
+        {
+            "symbol": "SSWL",
+            "name": "Steel Strips Wheels",
+            "ltp": 532.25,
+            "change": 63.5,
+            "pct_change": 13.546666666666667,
+            "volume": 36618655.0,
+            "rsi": 78.518295,
+            "pe": 25.13,
+            "mcap_cr": 8370.435213625,
+            "open": 468.7,
+            "bc_open": 391.0,
+            "bc_close": 468.75,
+            "wk52_high": 558.7,
+            "dist_52w_pct": -4.73,
+            "technicals": {
+                "pivot": 438.55,
+                "r1": 498.95,
+                "s1": 408.35,
+                "sma20": 414.7,
+                "ext_above_sma20_pct": 28.34,
+                "atr_pct": 5.61,
+                "vol_surge": 13.93
+            },
+            "next_event": {
+                "type": "ex_dividend",
+                "date": "2026-10-30",
+                "days_away": 4,
+                "direction": "gaps down (long forgoes the dividend)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +28% above 20D avg"
+            ],
+            "score": 62.2
+        }
+    ],
+    "ai_top_5": [],
+    "notes": {
+        "overall_market_note": "AI analysis temporarily unavailable.",
+        "methodology_note": "AI API request failed. Rule-based results remain authoritative.",
+        "ai_error": "AI ranking failed in both attempts. Primary error: HTTP 401: {\"error\":{\"message\":\"Missing Authentication header\",\"code\":401}}; Fallback error: Fallback request failed with HTTP 401: {\"error\":{\"message\":\"Missing Authentication header\",\"code\":401}}"
+    }
+}
