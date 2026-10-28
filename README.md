@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (27 October 2026)
-- **ScanX Candidates:** 12
-- **Passed 52W High Filter:** 7 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Acutaas Chemicals** (Composite: **70.9/100**)
+### ⚡ Latest Scan Summary (28 October 2026)
+- **ScanX Candidates:** 11
+- **Passed 52W High Filter:** 4 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **United Polyfab** (Composite: **67.0/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---

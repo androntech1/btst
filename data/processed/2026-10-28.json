@@ -1,0 +1,293 @@
+{
+    "date": "2026-10-28",
+    "timestamp": "2026-10-28 16:15:24",
+    "ai_enabled": true,
+    "ai_provider": "openrouter",
+    "ai_model": "google/gemini-2.5-flash",
+    "counts": {
+        "scanx_universe": 11,
+        "near_52w": 4
+    },
+    "candidates": [
+        {
+            "symbol": "UNITEDPOLY",
+            "name": "United Polyfab",
+            "ltp": 55.13,
+            "change": 1.740000000000002,
+            "pct_change": 3.25903727289755,
+            "volume": 2798171.0,
+            "rsi": 71.17785,
+            "pe": 44.9,
+            "mcap_cr": 1265.3189515,
+            "open": 54.5,
+            "bc_open": 49.6,
+            "bc_close": 53.39,
+            "wk52_high": 56.0,
+            "dist_52w_pct": -1.55,
+            "technicals": {
+                "pivot": 52.7,
+                "r1": 56.69,
+                "s1": 49.41,
+                "sma20": 50.0,
+                "ext_above_sma20_pct": 10.27,
+                "atr_pct": 6.87,
+                "vol_surge": 4.09
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [],
+            "score": 67.0
+        },
+        {
+            "symbol": "PPLPHARMA",
+            "name": "Piramal Pharma",
+            "ltp": 232.8,
+            "change": 34.08000000000001,
+            "pct_change": 17.149758454106287,
+            "volume": 118072228.0,
+            "rsi": 71.93444,
+            "pe": -84.09,
+            "mcap_cr": 30993.7844664,
+            "open": 214.1,
+            "bc_open": 196.08,
+            "bc_close": 198.72,
+            "wk52_high": 235.64,
+            "dist_52w_pct": -1.21,
+            "technicals": {
+                "pivot": 198.9,
+                "r1": 203.19,
+                "s1": 194.43,
+                "sma20": 199.12,
+                "ext_above_sma20_pct": 16.91,
+                "atr_pct": 3.82,
+                "vol_surge": 53.05
+            },
+            "next_event": {
+                "type": "earnings",
+                "date": "2027-01-27",
+                "days_away": 91,
+                "direction": "two-sided (results volatility)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +17% above 20D avg",
+                "Loss-making (negative PE)"
+            ],
+            "score": 64.5
+        },
+        {
+            "symbol": "TANLA",
+            "name": "Tanla Platforms",
+            "ltp": 598.7,
+            "change": 19.550000000000068,
+            "pct_change": 3.3756367089700543,
+            "volume": 3558705.0,
+            "rsi": 68.78749,
+            "pe": 14.42,
+            "mcap_cr": 7940.799016880001,
+            "open": 586.0,
+            "bc_open": 571.0,
+            "bc_close": 579.15,
+            "wk52_high": 656.0,
+            "dist_52w_pct": -8.73,
+            "technicals": {
+                "pivot": 576.83,
+                "r1": 587.82,
+                "s1": 568.17,
+                "sma20": 532.36,
+                "ext_above_sma20_pct": 12.46,
+                "atr_pct": 4.88,
+                "vol_surge": 2.74
+            },
+            "next_event": {
+                "type": "earnings",
+                "date": "2027-01-21",
+                "days_away": 85,
+                "direction": "two-sided (results volatility)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [],
+            "score": 40.7
+        },
+        {
+            "symbol": "HILINFRA",
+            "name": "Highway Infrastructure",
+            "ltp": 76.35,
+            "change": 4.1699999999999875,
+            "pct_change": 5.77722360764753,
+            "volume": 2563354.0,
+            "rsi": 88.948,
+            "pe": 20.22,
+            "mcap_cr": 547.58702532,
+            "open": 72.21,
+            "bc_open": 63.05,
+            "bc_close": 72.18,
+            "wk52_high": 82.88,
+            "dist_52w_pct": -7.88,
+            "technicals": {
+                "pivot": 68.86,
+                "r1": 77.15,
+                "s1": 63.89,
+                "sma20": 52.92,
+                "ext_above_sma20_pct": 44.29,
+                "atr_pct": 6.04,
+                "vol_surge": 2.8
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Overbought RSI 89",
+                "Extended +44% above 20D avg"
+            ],
+            "score": 14.1
+        }
+    ],
+    "rule_based_top_5": [
+        {
+            "symbol": "UNITEDPOLY",
+            "name": "United Polyfab",
+            "ltp": 55.13,
+            "change": 1.740000000000002,
+            "pct_change": 3.25903727289755,
+            "volume": 2798171.0,
+            "rsi": 71.17785,
+            "pe": 44.9,
+            "mcap_cr": 1265.3189515,
+            "open": 54.5,
+            "bc_open": 49.6,
+            "bc_close": 53.39,
+            "wk52_high": 56.0,
+            "dist_52w_pct": -1.55,
+            "technicals": {
+                "pivot": 52.7,
+                "r1": 56.69,
+                "s1": 49.41,
+                "sma20": 50.0,
+                "ext_above_sma20_pct": 10.27,
+                "atr_pct": 6.87,
+                "vol_surge": 4.09
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [],
+            "score": 67.0
+        },
+        {
+            "symbol": "PPLPHARMA",
+            "name": "Piramal Pharma",
+            "ltp": 232.8,
+            "change": 34.08000000000001,
+            "pct_change": 17.149758454106287,
+            "volume": 118072228.0,
+            "rsi": 71.93444,
+            "pe": -84.09,
+            "mcap_cr": 30993.7844664,
+            "open": 214.1,
+            "bc_open": 196.08,
+            "bc_close": 198.72,
+            "wk52_high": 235.64,
+            "dist_52w_pct": -1.21,
+            "technicals": {
+                "pivot": 198.9,
+                "r1": 203.19,
+                "s1": 194.43,
+                "sma20": 199.12,
+                "ext_above_sma20_pct": 16.91,
+                "atr_pct": 3.82,
+                "vol_surge": 53.05
+            },
+            "next_event": {
+                "type": "earnings",
+                "date": "2027-01-27",
+                "days_away": 91,
+                "direction": "two-sided (results volatility)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +17% above 20D avg",
+                "Loss-making (negative PE)"
+            ],
+            "score": 64.5
+        },
+        {
+            "symbol": "TANLA",
+            "name": "Tanla Platforms",
+            "ltp": 598.7,
+            "change": 19.550000000000068,
+            "pct_change": 3.3756367089700543,
+            "volume": 3558705.0,
+            "rsi": 68.78749,
+            "pe": 14.42,
+            "mcap_cr": 7940.799016880001,
+            "open": 586.0,
+            "bc_open": 571.0,
+            "bc_close": 579.15,
+            "wk52_high": 656.0,
+            "dist_52w_pct": -8.73,
+            "technicals": {
+                "pivot": 576.83,
+                "r1": 587.82,
+                "s1": 568.17,
+                "sma20": 532.36,
+                "ext_above_sma20_pct": 12.46,
+                "atr_pct": 4.88,
+                "vol_surge": 2.74
+            },
+            "next_event": {
+                "type": "earnings",
+                "date": "2027-01-21",
+                "days_away": 85,
+                "direction": "two-sided (results volatility)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [],
+            "score": 40.7
+        },
+        {
+            "symbol": "HILINFRA",
+            "name": "Highway Infrastructure",
+            "ltp": 76.35,
+            "change": 4.1699999999999875,
+            "pct_change": 5.77722360764753,
+            "volume": 2563354.0,
+            "rsi": 88.948,
+            "pe": 20.22,
+            "mcap_cr": 547.58702532,
+            "open": 72.21,
+            "bc_open": 63.05,
+            "bc_close": 72.18,
+            "wk52_high": 82.88,
+            "dist_52w_pct": -7.88,
+            "technicals": {
+                "pivot": 68.86,
+                "r1": 77.15,
+                "s1": 63.89,
+                "sma20": 52.92,
+                "ext_above_sma20_pct": 44.29,
+                "atr_pct": 6.04,
+                "vol_surge": 2.8
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Overbought RSI 89",
+                "Extended +44% above 20D avg"
+            ],
+            "score": 14.1
+        }
+    ],
+    "ai_top_5": [],
+    "notes": {
+        "overall_market_note": "AI analysis temporarily unavailable.",
+        "methodology_note": "AI API request failed. Rule-based results remain authoritative.",
+        "ai_error": "AI ranking failed in both attempts. Primary error: HTTP 401: {\"error\":{\"message\":\"Missing Authentication header\",\"code\":401}}; Fallback error: Fallback request failed with HTTP 401: {\"error\":{\"message\":\"Missing Authentication header\",\"code\":401}}"
+    }
+}
