@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (29 October 2026)
-- **ScanX Candidates:** 15
-- **Passed 52W High Filter:** 8 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Vijay Solvex** (Composite: **80.9/100**)
+### ⚡ Latest Scan Summary (30 October 2026)
+- **ScanX Candidates:** 13
+- **Passed 52W High Filter:** 6 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **SMS Pharmaceuticals** (Composite: **76.6/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---

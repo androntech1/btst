@@ -1,0 +1,387 @@
+{
+    "date": "2026-10-30",
+    "timestamp": "2026-10-30 16:12:48",
+    "ai_enabled": true,
+    "ai_provider": "openrouter",
+    "ai_model": "google/gemini-2.5-flash",
+    "counts": {
+        "scanx_universe": 13,
+        "near_52w": 6
+    },
+    "candidates": [
+        {
+            "symbol": "SMSPHARMA",
+            "name": "SMS Pharmaceuticals",
+            "ltp": 511.35,
+            "change": 25.55000000000001,
+            "pct_change": 5.259365994236313,
+            "volume": 4304855.0,
+            "rsi": 69.10523,
+            "pe": 44.5,
+            "mcap_cr": 4788.89655405,
+            "open": 499.7,
+            "bc_open": 477.0,
+            "bc_close": 485.8,
+            "wk52_high": 525.0,
+            "dist_52w_pct": -2.6,
+            "technicals": {
+                "pivot": 482.93,
+                "r1": 492.87,
+                "s1": 475.87,
+                "sma20": 450.29,
+                "ext_above_sma20_pct": 13.56,
+                "atr_pct": 4.43,
+                "vol_surge": 10.39
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [],
+            "score": 76.6
+        },
+        {
+            "symbol": "ZYDUSLIFE",
+            "name": "Zydus Life Science",
+            "ltp": 1245.5,
+            "change": 61.09999999999991,
+            "pct_change": 5.158730158730151,
+            "volume": 3660709.0,
+            "rsi": 70.86791,
+            "pe": 25.8,
+            "mcap_cr": 124239.1022756,
+            "open": 1190.0,
+            "bc_open": 1175.5,
+            "bc_close": 1184.4,
+            "wk52_high": 1248.9,
+            "dist_52w_pct": -0.27,
+            "technicals": {
+                "pivot": 1180.9,
+                "r1": 1191.3,
+                "s1": 1174.0,
+                "sma20": 1145.79,
+                "ext_above_sma20_pct": 8.7,
+                "atr_pct": 2.75,
+                "vol_surge": 3.13
+            },
+            "next_event": {
+                "type": "earnings",
+                "date": "2026-11-04",
+                "days_away": 5,
+                "direction": "two-sided (results volatility)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [],
+            "score": 68.2
+        },
+        {
+            "symbol": "SRIVASAVI",
+            "name": "Srivasavi Adhesive Tapes",
+            "ltp": 100.5,
+            "change": 3.950000000000003,
+            "pct_change": 4.091144484722944,
+            "volume": 66000.0,
+            "rsi": 68.479485,
+            "pe": 22.8,
+            "mcap_cr": 142.4503683,
+            "open": 99.85,
+            "bc_open": 94.0,
+            "bc_close": 96.55,
+            "wk52_high": 98.0,
+            "dist_52w_pct": 2.55,
+            "technicals": {
+                "pivot": 94.7,
+                "r1": 99.1,
+                "s1": 92.15,
+                "sma20": 86.47,
+                "ext_above_sma20_pct": 16.22,
+                "atr_pct": 4.9,
+                "vol_surge": 6.17
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +16% above 20D avg"
+            ],
+            "score": 65.7
+        },
+        {
+            "symbol": "LAURUSLABS",
+            "name": "Laurus Labs",
+            "ltp": 2405.5,
+            "change": 161.5,
+            "pct_change": 7.196969696969697,
+            "volume": 7913297.0,
+            "rsi": 78.70688,
+            "pe": 111.3,
+            "mcap_cr": 129972.1040399,
+            "open": 2246.6,
+            "bc_open": 2190.0,
+            "bc_close": 2244.0,
+            "wk52_high": 2405.5,
+            "dist_52w_pct": 0.0,
+            "technicals": {
+                "pivot": 2218.0,
+                "r1": 2270.0,
+                "s1": 2192.0,
+                "sma20": 2071.15,
+                "ext_above_sma20_pct": 16.14,
+                "atr_pct": 3.09,
+                "vol_surge": 4.3
+            },
+            "next_event": {
+                "type": "ex_dividend",
+                "date": "2026-11-06",
+                "days_away": 7,
+                "direction": "gaps down (long forgoes the dividend)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +16% above 20D avg",
+                "Very high PE 111"
+            ],
+            "score": 58.1
+        },
+        {
+            "symbol": "MILTON",
+            "name": "Milton Industries",
+            "ltp": 49.45,
+            "change": 2.3500000000000014,
+            "pct_change": 4.989384288747349,
+            "volume": 33000.0,
+            "rsi": 75.472115,
+            "pe": 44.4,
+            "mcap_cr": 84.040275,
+            "open": 49.45,
+            "bc_open": 48.05,
+            "bc_close": 47.1,
+            "wk52_high": 53.5,
+            "dist_52w_pct": -7.57,
+            "technicals": {
+                "pivot": 47.42,
+                "r1": 47.73,
+                "s1": 46.78,
+                "sma20": 37.65,
+                "ext_above_sma20_pct": 31.32,
+                "atr_pct": 2.85,
+                "vol_surge": 4.69
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +31% above 20D avg"
+            ],
+            "score": 42.3
+        },
+        {
+            "symbol": "NGIL",
+            "name": "Nakoda Group of Industries",
+            "ltp": 43.95,
+            "change": 1.4400000000000048,
+            "pct_change": 3.3874382498235827,
+            "volume": 205848.0,
+            "rsi": 67.384224,
+            "pe": 45.5,
+            "mcap_cr": 77.07973854000001,
+            "open": 42.69,
+            "bc_open": 40.87,
+            "bc_close": 42.51,
+            "wk52_high": 46.9,
+            "dist_52w_pct": -6.29,
+            "technicals": {
+                "pivot": 41.3,
+                "r1": 44.61,
+                "s1": 39.21,
+                "sma20": 37.97,
+                "ext_above_sma20_pct": 15.76,
+                "atr_pct": 9.54,
+                "vol_surge": 2.53
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +16% above 20D avg"
+            ],
+            "score": 41.8
+        }
+    ],
+    "rule_based_top_5": [
+        {
+            "symbol": "SMSPHARMA",
+            "name": "SMS Pharmaceuticals",
+            "ltp": 511.35,
+            "change": 25.55000000000001,
+            "pct_change": 5.259365994236313,
+            "volume": 4304855.0,
+            "rsi": 69.10523,
+            "pe": 44.5,
+            "mcap_cr": 4788.89655405,
+            "open": 499.7,
+            "bc_open": 477.0,
+            "bc_close": 485.8,
+            "wk52_high": 525.0,
+            "dist_52w_pct": -2.6,
+            "technicals": {
+                "pivot": 482.93,
+                "r1": 492.87,
+                "s1": 475.87,
+                "sma20": 450.29,
+                "ext_above_sma20_pct": 13.56,
+                "atr_pct": 4.43,
+                "vol_surge": 10.39
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [],
+            "score": 76.6
+        },
+        {
+            "symbol": "ZYDUSLIFE",
+            "name": "Zydus Life Science",
+            "ltp": 1245.5,
+            "change": 61.09999999999991,
+            "pct_change": 5.158730158730151,
+            "volume": 3660709.0,
+            "rsi": 70.86791,
+            "pe": 25.8,
+            "mcap_cr": 124239.1022756,
+            "open": 1190.0,
+            "bc_open": 1175.5,
+            "bc_close": 1184.4,
+            "wk52_high": 1248.9,
+            "dist_52w_pct": -0.27,
+            "technicals": {
+                "pivot": 1180.9,
+                "r1": 1191.3,
+                "s1": 1174.0,
+                "sma20": 1145.79,
+                "ext_above_sma20_pct": 8.7,
+                "atr_pct": 2.75,
+                "vol_surge": 3.13
+            },
+            "next_event": {
+                "type": "earnings",
+                "date": "2026-11-04",
+                "days_away": 5,
+                "direction": "two-sided (results volatility)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [],
+            "score": 68.2
+        },
+        {
+            "symbol": "SRIVASAVI",
+            "name": "Srivasavi Adhesive Tapes",
+            "ltp": 100.5,
+            "change": 3.950000000000003,
+            "pct_change": 4.091144484722944,
+            "volume": 66000.0,
+            "rsi": 68.479485,
+            "pe": 22.8,
+            "mcap_cr": 142.4503683,
+            "open": 99.85,
+            "bc_open": 94.0,
+            "bc_close": 96.55,
+            "wk52_high": 98.0,
+            "dist_52w_pct": 2.55,
+            "technicals": {
+                "pivot": 94.7,
+                "r1": 99.1,
+                "s1": 92.15,
+                "sma20": 86.47,
+                "ext_above_sma20_pct": 16.22,
+                "atr_pct": 4.9,
+                "vol_surge": 6.17
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +16% above 20D avg"
+            ],
+            "score": 65.7
+        },
+        {
+            "symbol": "LAURUSLABS",
+            "name": "Laurus Labs",
+            "ltp": 2405.5,
+            "change": 161.5,
+            "pct_change": 7.196969696969697,
+            "volume": 7913297.0,
+            "rsi": 78.70688,
+            "pe": 111.3,
+            "mcap_cr": 129972.1040399,
+            "open": 2246.6,
+            "bc_open": 2190.0,
+            "bc_close": 2244.0,
+            "wk52_high": 2405.5,
+            "dist_52w_pct": 0.0,
+            "technicals": {
+                "pivot": 2218.0,
+                "r1": 2270.0,
+                "s1": 2192.0,
+                "sma20": 2071.15,
+                "ext_above_sma20_pct": 16.14,
+                "atr_pct": 3.09,
+                "vol_surge": 4.3
+            },
+            "next_event": {
+                "type": "ex_dividend",
+                "date": "2026-11-06",
+                "days_away": 7,
+                "direction": "gaps down (long forgoes the dividend)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +16% above 20D avg",
+                "Very high PE 111"
+            ],
+            "score": 58.1
+        },
+        {
+            "symbol": "MILTON",
+            "name": "Milton Industries",
+            "ltp": 49.45,
+            "change": 2.3500000000000014,
+            "pct_change": 4.989384288747349,
+            "volume": 33000.0,
+            "rsi": 75.472115,
+            "pe": 44.4,
+            "mcap_cr": 84.040275,
+            "open": 49.45,
+            "bc_open": 48.05,
+            "bc_close": 47.1,
+            "wk52_high": 53.5,
+            "dist_52w_pct": -7.57,
+            "technicals": {
+                "pivot": 47.42,
+                "r1": 47.73,
+                "s1": 46.78,
+                "sma20": 37.65,
+                "ext_above_sma20_pct": 31.32,
+                "atr_pct": 2.85,
+                "vol_surge": 4.69
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +31% above 20D avg"
+            ],
+            "score": 42.3
+        }
+    ],
+    "ai_top_5": [],
+    "notes": {
+        "overall_market_note": "AI analysis temporarily unavailable.",
+        "methodology_note": "AI API request failed. Rule-based results remain authoritative.",
+        "ai_error": "AI ranking failed in both attempts. Primary error: HTTP 401: {\"error\":{\"message\":\"Missing Authentication header\",\"code\":401}}; Fallback error: Fallback request failed with HTTP 401: {\"error\":{\"message\":\"Missing Authentication header\",\"code\":401}}"
+    }
+}
