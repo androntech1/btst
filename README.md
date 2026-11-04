@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (03 November 2026)
-- **ScanX Candidates:** 20
-- **Passed 52W High Filter:** 11 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Gayatri Rubbers & Chemicals** (Composite: **86.6/100**)
+### ⚡ Latest Scan Summary (04 November 2026)
+- **ScanX Candidates:** 32
+- **Passed 52W High Filter:** 15 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Gayatri Rubbers & Chemicals** (Composite: **79.4/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
