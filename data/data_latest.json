@@ -1,6 +1,6 @@
 {
-    "date": "2026-11-09",
-    "timestamp": "2026-11-09 20:01:49",
+    "date": "2026-11-10",
+    "timestamp": "2026-11-10 17:16:05",
     "ai_enabled": true,
     "ai_provider": "openrouter",
     "ai_model": "google/gemini-2.5-flash",
@@ -25,9 +25,9 @@
             "wk52_high": 480.95,
             "dist_52w_pct": -1.37,
             "technicals": {
-                "pivot": 431.68,
-                "r1": 437.57,
-                "s1": 424.47,
+                "pivot": 463.9,
+                "r1": 491.4,
+                "s1": 446.85,
                 "sma20": 416.3,
                 "ext_above_sma20_pct": 13.95,
                 "atr_pct": 4.11,
@@ -55,9 +55,9 @@
             "wk52_high": 360.0,
             "dist_52w_pct": -2.67,
             "technicals": {
-                "pivot": 332.37,
-                "r1": 338.38,
-                "s1": 327.53,
+                "pivot": 350.48,
+                "r1": 359.42,
+                "s1": 341.47,
                 "sma20": 315.04,
                 "ext_above_sma20_pct": 11.22,
                 "atr_pct": 4.41,
@@ -85,9 +85,9 @@
             "wk52_high": 589.9,
             "dist_52w_pct": -1.27,
             "technicals": {
-                "pivot": 552.58,
-                "r1": 562.12,
-                "s1": 539.67,
+                "pivot": 575.8,
+                "r1": 596.5,
+                "s1": 561.7,
                 "sma20": 534.67,
                 "ext_above_sma20_pct": 8.93,
                 "atr_pct": 4.18,
@@ -115,9 +115,9 @@
             "wk52_high": 989.1,
             "dist_52w_pct": -3.13,
             "technicals": {
-                "pivot": 912.22,
-                "r1": 925.33,
-                "s1": 902.43,
+                "pivot": 964.58,
+                "r1": 982.67,
+                "s1": 940.07,
                 "sma20": 850.47,
                 "ext_above_sma20_pct": 12.66,
                 "atr_pct": 3.02,
@@ -145,9 +145,9 @@
             "wk52_high": 249.44,
             "dist_52w_pct": -4.83,
             "technicals": {
-                "pivot": 166.29,
-                "r1": 168.57,
-                "s1": 162.59,
+                "pivot": 224.64,
+                "r1": 250.14,
+                "s1": 211.9,
                 "sma20": 166.82,
                 "ext_above_sma20_pct": 42.3,
                 "atr_pct": 7.65,
@@ -177,9 +177,9 @@
             "wk52_high": 117.72,
             "dist_52w_pct": -9.46,
             "technicals": {
-                "pivot": 100.24,
-                "r1": 105.38,
-                "s1": 96.08,
+                "pivot": 106.65,
+                "r1": 114.31,
+                "s1": 98.93,
                 "sma20": 93.48,
                 "ext_above_sma20_pct": 14.01,
                 "atr_pct": 4.82,
@@ -207,9 +207,9 @@
             "wk52_high": 2705.0,
             "dist_52w_pct": -1.36,
             "technicals": {
-                "pivot": 2524.67,
-                "r1": 2560.33,
-                "s1": 2504.33,
+                "pivot": 2652.83,
+                "r1": 2720.47,
+                "s1": 2600.67,
                 "sma20": 2412.2,
                 "ext_above_sma20_pct": 10.62,
                 "atr_pct": 3.13,
@@ -218,45 +218,13 @@
             "next_event": {
                 "type": "earnings",
                 "date": "2027-01-26",
-                "days_away": 78,
+                "days_away": 77,
                 "direction": "two-sided (results volatility)"
             },
             "event_risk": false,
             "catalyst": "",
             "flags": [],
             "score": 58.3
-        },
-        {
-            "symbol": "SILKFLEX",
-            "name": "Silkflex Polymers",
-            "ltp": 313.2,
-            "change": 13.399999999999977,
-            "pct_change": 4.469646430953961,
-            "volume": 37000.0,
-            "rsi": 65.10685,
-            "pe": 28.6,
-            "mcap_cr": 363.53124,
-            "open": 316.0,
-            "bc_open": 299.8,
-            "bc_close": 299.8,
-            "wk52_high": 315.95,
-            "dist_52w_pct": -0.87,
-            "technicals": {
-                "pivot": 297.98,
-                "r1": 308.97,
-                "s1": 280.02,
-                "sma20": 268.29,
-                "ext_above_sma20_pct": 16.74,
-                "atr_pct": 6.08,
-                "vol_surge": 2.09
-            },
-            "next_event": null,
-            "event_risk": false,
-            "catalyst": "",
-            "flags": [
-                "Extended +17% above 20D avg"
-            ],
-            "score": 52.3
         },
         {
             "symbol": "YCCL",
@@ -274,21 +242,86 @@
             "wk52_high": 13.5,
             "dist_52w_pct": -9.63,
             "technicals": {
-                "pivot": 8.8,
-                "r1": 8.8,
-                "s1": 8.8,
-                "sma20": 7.98,
-                "ext_above_sma20_pct": 52.83,
-                "atr_pct": 1.84,
-                "vol_surge": 10.0
+                "pivot": 11.97,
+                "r1": 12.43,
+                "s1": 11.73,
+                "sma20": 8.19,
+                "ext_above_sma20_pct": 49.01,
+                "atr_pct": 3.83,
+                "vol_surge": 11.3
             },
             "next_event": null,
             "event_risk": false,
             "catalyst": "",
             "flags": [
-                "Extended +53% above 20D avg"
+                "Extended +49% above 20D avg"
             ],
             "score": 49.3
+        },
+        {
+            "symbol": "MILTON",
+            "name": "Milton Industries",
+            "ltp": 60.45,
+            "change": 2.8500000000000014,
+            "pct_change": 4.947916666666669,
+            "volume": 81400.0,
+            "rsi": 82.37304,
+            "pe": 54.3,
+            "mcap_cr": 102.734775,
+            "open": 60.45,
+            "bc_open": 57.6,
+            "bc_close": 57.6,
+            "wk52_high": 60.45,
+            "dist_52w_pct": -0.0,
+            "technicals": {
+                "pivot": 59.3,
+                "r1": 61.6,
+                "s1": 58.15,
+                "sma20": 44.36,
+                "ext_above_sma20_pct": 36.28,
+                "atr_pct": 3.64,
+                "vol_surge": 3.63
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Overbought RSI 82",
+                "Extended +36% above 20D avg"
+            ],
+            "score": 49.0
+        },
+        {
+            "symbol": "SILKFLEX",
+            "name": "Silkflex Polymers",
+            "ltp": 313.2,
+            "change": 13.399999999999977,
+            "pct_change": 4.469646430953961,
+            "volume": 37000.0,
+            "rsi": 65.10685,
+            "pe": 28.6,
+            "mcap_cr": 363.53124,
+            "open": 316.0,
+            "bc_open": 299.8,
+            "bc_close": 299.8,
+            "wk52_high": 322.0,
+            "dist_52w_pct": -2.73,
+            "technicals": {
+                "pivot": 311.9,
+                "r1": 329.25,
+                "s1": 301.8,
+                "sma20": 271.25,
+                "ext_above_sma20_pct": 15.46,
+                "atr_pct": 6.31,
+                "vol_surge": 2.01
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Extended +15% above 20D avg"
+            ],
+            "score": 48.9
         },
         {
             "symbol": "BMETRICS",
@@ -303,24 +336,24 @@
             "open": 49.95,
             "bc_open": 47.95,
             "bc_close": 48.95,
-            "wk52_high": 54.0,
-            "dist_52w_pct": 3.15,
+            "wk52_high": 57.4,
+            "dist_52w_pct": -2.96,
             "technicals": {
-                "pivot": 46.95,
-                "r1": 46.95,
-                "s1": 46.95,
-                "sma20": 41.44,
-                "ext_above_sma20_pct": 34.39,
-                "atr_pct": 4.58,
-                "vol_surge": 3.33
+                "pivot": 54.35,
+                "r1": 58.75,
+                "s1": 51.3,
+                "sma20": 42.48,
+                "ext_above_sma20_pct": 31.12,
+                "atr_pct": 5.89,
+                "vol_surge": 3.38
             },
             "next_event": null,
             "event_risk": false,
             "catalyst": "",
             "flags": [
-                "Extended +34% above 20D avg"
+                "Extended +31% above 20D avg"
             ],
-            "score": 47.7
+            "score": 48.4
         },
         {
             "symbol": "PERMAGN",
@@ -338,9 +371,9 @@
             "wk52_high": 1279.0,
             "dist_52w_pct": -5.63,
             "technicals": {
-                "pivot": 1057.78,
-                "r1": 1115.97,
-                "s1": 1020.17,
+                "pivot": 1199.05,
+                "r1": 1286.95,
+                "s1": 1119.1,
                 "sma20": 957.4,
                 "ext_above_sma20_pct": 26.07,
                 "atr_pct": 8.13,
@@ -370,9 +403,9 @@
             "wk52_high": 103.7,
             "dist_52w_pct": -9.85,
             "technicals": {
-                "pivot": 82.91,
-                "r1": 85.8,
-                "s1": 80.55,
+                "pivot": 92.66,
+                "r1": 94.96,
+                "s1": 91.18,
                 "sma20": 83.31,
                 "ext_above_sma20_pct": 12.22,
                 "atr_pct": 4.25,
@@ -400,9 +433,9 @@
             "wk52_high": 41.8,
             "dist_52w_pct": 0.0,
             "technicals": {
-                "pivot": 40.19,
-                "r1": 40.19,
-                "s1": 40.19,
+                "pivot": 41.8,
+                "r1": 41.8,
+                "s1": 41.8,
                 "sma20": 34.95,
                 "ext_above_sma20_pct": 19.59,
                 "atr_pct": 1.61,
@@ -434,9 +467,9 @@
             "wk52_high": 12.74,
             "dist_52w_pct": -7.46,
             "technicals": {
-                "pivot": 10.92,
-                "r1": 11.57,
-                "s1": 10.17,
+                "pivot": 11.66,
+                "r1": 12.87,
+                "s1": 10.59,
                 "sma20": 9.8,
                 "ext_above_sma20_pct": 20.27,
                 "atr_pct": 8.44,
@@ -466,9 +499,9 @@
             "wk52_high": 2719.3,
             "dist_52w_pct": -6.62,
             "technicals": {
-                "pivot": 2461.07,
-                "r1": 2564.03,
-                "s1": 2338.13,
+                "pivot": 2586.33,
+                "r1": 2672.37,
+                "s1": 2453.37,
                 "sma20": 2162.27,
                 "ext_above_sma20_pct": 17.44,
                 "atr_pct": 4.57,
@@ -498,9 +531,9 @@
             "wk52_high": 11824.0,
             "dist_52w_pct": -2.19,
             "technicals": {
-                "pivot": 10227.17,
-                "r1": 10413.83,
-                "s1": 10133.83,
+                "pivot": 11486.83,
+                "r1": 11902.67,
+                "s1": 11149.67,
                 "sma20": 9596.45,
                 "ext_above_sma20_pct": 20.52,
                 "atr_pct": 2.93,
@@ -509,7 +542,7 @@
             "next_event": {
                 "type": "earnings",
                 "date": "2027-02-06",
-                "days_away": 89,
+                "days_away": 88,
                 "direction": "two-sided (results volatility)"
             },
             "event_risk": false,
@@ -519,39 +552,6 @@
                 "Extended +21% above 20D avg"
             ],
             "score": 38.0
-        },
-        {
-            "symbol": "MILTON",
-            "name": "Milton Industries",
-            "ltp": 60.45,
-            "change": 2.8500000000000014,
-            "pct_change": 4.947916666666669,
-            "volume": 81400.0,
-            "rsi": 82.37304,
-            "pe": 54.3,
-            "mcap_cr": 102.734775,
-            "open": 60.45,
-            "bc_open": 57.6,
-            "bc_close": 57.6,
-            "wk52_high": 57.65,
-            "dist_52w_pct": 4.86,
-            "technicals": {
-                "pivot": 57.58,
-                "r1": 57.67,
-                "s1": 57.52,
-                "sma20": 43.02,
-                "ext_above_sma20_pct": 40.51,
-                "atr_pct": 3.23,
-                "vol_surge": 3.43
-            },
-            "next_event": null,
-            "event_risk": false,
-            "catalyst": "",
-            "flags": [
-                "Overbought RSI 82",
-                "Extended +41% above 20D avg"
-            ],
-            "score": 36.0
         }
     ],
     "rule_based_top_5": [
@@ -571,9 +571,9 @@
             "wk52_high": 480.95,
             "dist_52w_pct": -1.37,
             "technicals": {
-                "pivot": 431.68,
-                "r1": 437.57,
-                "s1": 424.47,
+                "pivot": 463.9,
+                "r1": 491.4,
+                "s1": 446.85,
                 "sma20": 416.3,
                 "ext_above_sma20_pct": 13.95,
                 "atr_pct": 4.11,
@@ -601,9 +601,9 @@
             "wk52_high": 360.0,
             "dist_52w_pct": -2.67,
             "technicals": {
-                "pivot": 332.37,
-                "r1": 338.38,
-                "s1": 327.53,
+                "pivot": 350.48,
+                "r1": 359.42,
+                "s1": 341.47,
                 "sma20": 315.04,
                 "ext_above_sma20_pct": 11.22,
                 "atr_pct": 4.41,
@@ -631,9 +631,9 @@
             "wk52_high": 589.9,
             "dist_52w_pct": -1.27,
             "technicals": {
-                "pivot": 552.58,
-                "r1": 562.12,
-                "s1": 539.67,
+                "pivot": 575.8,
+                "r1": 596.5,
+                "s1": 561.7,
                 "sma20": 534.67,
                 "ext_above_sma20_pct": 8.93,
                 "atr_pct": 4.18,
@@ -661,9 +661,9 @@
             "wk52_high": 989.1,
             "dist_52w_pct": -3.13,
             "technicals": {
-                "pivot": 912.22,
-                "r1": 925.33,
-                "s1": 902.43,
+                "pivot": 964.58,
+                "r1": 982.67,
+                "s1": 940.07,
                 "sma20": 850.47,
                 "ext_above_sma20_pct": 12.66,
                 "atr_pct": 3.02,
@@ -691,9 +691,9 @@
             "wk52_high": 249.44,
             "dist_52w_pct": -4.83,
             "technicals": {
-                "pivot": 166.29,
-                "r1": 168.57,
-                "s1": 162.59,
+                "pivot": 224.64,
+                "r1": 250.14,
+                "s1": 211.9,
                 "sma20": 166.82,
                 "ext_above_sma20_pct": 42.3,
                 "atr_pct": 7.65,

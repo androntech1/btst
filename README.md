@@ -13,7 +13,7 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (09 November 2026)
+### ⚡ Latest Scan Summary (10 November 2026)
 - **ScanX Candidates:** 36
 - **Passed 52W High Filter:** 17 stocks within 10% of 52W High
 - **Top Rule-Based Pick:** **Gufic BioSciences** (Composite: **79.1/100**)
