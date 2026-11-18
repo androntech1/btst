@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (17 November 2026)
-- **ScanX Candidates:** 30
-- **Passed 52W High Filter:** 14 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Manomay Tex** (Composite: **72.5/100**)
+### ⚡ Latest Scan Summary (18 November 2026)
+- **ScanX Candidates:** 27
+- **Passed 52W High Filter:** 13 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Sangam** (Composite: **75.2/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
