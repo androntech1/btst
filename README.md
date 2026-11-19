@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (18 November 2026)
-- **ScanX Candidates:** 27
-- **Passed 52W High Filter:** 13 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Sangam** (Composite: **75.2/100**)
+### ⚡ Latest Scan Summary (19 November 2026)
+- **ScanX Candidates:** 26
+- **Passed 52W High Filter:** 11 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Gujarat Fluorochemicals** (Composite: **63.4/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
