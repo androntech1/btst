@@ -1,6 +1,7 @@
 {
-    "latest_date": "2026-11-19",
+    "latest_date": "2026-11-20",
     "available_dates": [
+        "2026-11-20",
         "2026-11-19",
         "2026-11-18",
         "2026-11-17",
@@ -63,7 +64,7 @@
         "2026-08-27",
         "2026-08-26"
     ],
-    "last_updated": "2026-11-19 18:38:13",
+    "last_updated": "2026-11-20 17:59:16",
     "ai_enabled": true,
     "ai_model": "openrouter/google/gemini-2.5-flash"
 }
