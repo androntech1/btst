@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (23 November 2026)
+### ⚡ Latest Scan Summary (24 November 2026)
 - **ScanX Candidates:** 21
 - **Passed 52W High Filter:** 10 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Ratnaveer Precision Engineering** (Composite: **74.3/100**)
+- **Top Rule-Based Pick:** **Ratnaveer Precision Engineering** (Composite: **75.1/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---

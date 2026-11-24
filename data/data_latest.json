@@ -1,6 +1,6 @@
 {
-    "date": "2026-11-23",
-    "timestamp": "2026-11-23 21:39:26",
+    "date": "2026-11-24",
+    "timestamp": "2026-11-24 20:19:28",
     "ai_enabled": true,
     "ai_provider": "openrouter",
     "ai_model": "google/gemini-2.5-flash",
@@ -25,11 +25,11 @@
             "wk52_high": 406.8,
             "dist_52w_pct": -0.86,
             "technicals": {
-                "pivot": 370.35,
-                "r1": 374.4,
-                "s1": 366.2,
-                "sma20": 364.1,
-                "ext_above_sma20_pct": 10.77,
+                "pivot": 392.5,
+                "r1": 417.6,
+                "s1": 378.2,
+                "sma20": 366.06,
+                "ext_above_sma20_pct": 10.17,
                 "atr_pct": 3.89,
                 "vol_surge": 5.58
             },
@@ -37,7 +37,7 @@
             "event_risk": false,
             "catalyst": "",
             "flags": [],
-            "score": 74.3
+            "score": 75.1
         },
         {
             "symbol": "SHUKRAMED",
@@ -85,11 +85,11 @@
             "wk52_high": 1354.5,
             "dist_52w_pct": -1.37,
             "technicals": {
-                "pivot": 1140.8,
-                "r1": 1161.5,
-                "s1": 1108.05,
-                "sma20": 1088.69,
-                "ext_above_sma20_pct": 22.71,
+                "pivot": 1279.82,
+                "r1": 1410.58,
+                "s1": 1205.13,
+                "sma20": 1101.05,
+                "ext_above_sma20_pct": 21.33,
                 "atr_pct": 6.84,
                 "vol_surge": 5.55
             },
@@ -97,42 +97,9 @@
             "event_risk": false,
             "catalyst": "",
             "flags": [
-                "Extended +23% above 20D avg"
+                "Extended +21% above 20D avg"
             ],
             "score": 61.4
-        },
-        {
-            "symbol": "HMAAGRO",
-            "name": "HMA Agro Industries",
-            "ltp": 40.03,
-            "change": 6.1200000000000045,
-            "pct_change": 18.047773518136257,
-            "volume": 124868159.0,
-            "rsi": 85.06495,
-            "pe": 7.4,
-            "mcap_cr": 1698.1,
-            "open": 33.01,
-            "bc_open": 29.34,
-            "bc_close": 33.91,
-            "wk52_high": 40.69,
-            "dist_52w_pct": -1.62,
-            "technicals": {
-                "pivot": 32.35,
-                "r1": 36.18,
-                "s1": 30.07,
-                "sma20": 26.61,
-                "ext_above_sma20_pct": 50.45,
-                "atr_pct": 6.22,
-                "vol_surge": 9.27
-            },
-            "next_event": null,
-            "event_risk": false,
-            "catalyst": "",
-            "flags": [
-                "Overbought RSI 85",
-                "Extended +50% above 20D avg"
-            ],
-            "score": 58.3
         },
         {
             "symbol": "PERSISTENT",
@@ -150,19 +117,24 @@
             "wk52_high": 6599.0,
             "dist_52w_pct": -4.8,
             "technicals": {
-                "pivot": 6056.67,
-                "r1": 6282.33,
-                "s1": 5898.33,
-                "sma20": 5980.61,
-                "ext_above_sma20_pct": 5.05,
+                "pivot": 6252.67,
+                "r1": 6369.33,
+                "s1": 6165.83,
+                "sma20": 5995.7,
+                "ext_above_sma20_pct": 4.78,
                 "atr_pct": 2.51,
                 "vol_surge": 2.38
             },
-            "next_event": null,
+            "next_event": {
+                "type": "earnings",
+                "date": "2027-01-19",
+                "days_away": 56,
+                "direction": "two-sided (results volatility)"
+            },
             "event_risk": false,
             "catalyst": "",
             "flags": [],
-            "score": 58.3
+            "score": 58.6
         },
         {
             "symbol": "MILKYMIST",
@@ -180,11 +152,11 @@
             "wk52_high": 342.4,
             "dist_52w_pct": -0.86,
             "technicals": {
-                "pivot": 319.58,
-                "r1": 329.17,
-                "s1": 314.07,
-                "sma20": 302.18,
-                "ext_above_sma20_pct": 12.33,
+                "pivot": 331.77,
+                "r1": 347.48,
+                "s1": 323.73,
+                "sma20": 304.05,
+                "ext_above_sma20_pct": 11.64,
                 "atr_pct": 4.08,
                 "vol_surge": 3.28
             },
@@ -194,7 +166,40 @@
             "flags": [
                 "Very high PE 106"
             ],
-            "score": 57.7
+            "score": 58.5
+        },
+        {
+            "symbol": "HMAAGRO",
+            "name": "HMA Agro Industries",
+            "ltp": 40.03,
+            "change": 6.1200000000000045,
+            "pct_change": 18.047773518136257,
+            "volume": 124868159.0,
+            "rsi": 85.06495,
+            "pe": 7.4,
+            "mcap_cr": 1698.1,
+            "open": 33.01,
+            "bc_open": 29.34,
+            "bc_close": 33.91,
+            "wk52_high": 40.69,
+            "dist_52w_pct": -1.62,
+            "technicals": {
+                "pivot": 37.91,
+                "r1": 42.81,
+                "s1": 35.13,
+                "sma20": 27.28,
+                "ext_above_sma20_pct": 46.75,
+                "atr_pct": 6.22,
+                "vol_surge": 9.27
+            },
+            "next_event": null,
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [
+                "Overbought RSI 85",
+                "Extended +47% above 20D avg"
+            ],
+            "score": 58.3
         },
         {
             "symbol": "GFLLIMITED",
@@ -212,11 +217,11 @@
             "wk52_high": 63.99,
             "dist_52w_pct": -2.89,
             "technicals": {
-                "pivot": 59.57,
-                "r1": 60.95,
-                "s1": 58.65,
-                "sma20": 54.3,
-                "ext_above_sma20_pct": 14.44,
+                "pivot": 61.61,
+                "r1": 63.21,
+                "s1": 60.53,
+                "sma20": 54.69,
+                "ext_above_sma20_pct": 13.62,
                 "atr_pct": 4.9,
                 "vol_surge": 2.53
             },
@@ -224,7 +229,7 @@
             "event_risk": false,
             "catalyst": "",
             "flags": [],
-            "score": 51.9
+            "score": 53.0
         },
         {
             "symbol": "ZETWERK",
@@ -242,11 +247,11 @@
             "wk52_high": 188.5,
             "dist_52w_pct": -3.49,
             "technicals": {
-                "pivot": 169.83,
-                "r1": 173.13,
-                "s1": 167.34,
-                "sma20": 167.44,
-                "ext_above_sma20_pct": 8.65,
+                "pivot": 180.01,
+                "r1": 189.01,
+                "s1": 172.91,
+                "sma20": 168.16,
+                "ext_above_sma20_pct": 8.18,
                 "atr_pct": 5.73,
                 "vol_surge": 2.84
             },
@@ -256,7 +261,7 @@
             "flags": [
                 "Loss-making (negative PE)"
             ],
-            "score": 50.1
+            "score": 50.6
         },
         {
             "symbol": "WINDMACHIN",
@@ -274,11 +279,11 @@
             "wk52_high": 375.95,
             "dist_52w_pct": -5.65,
             "technicals": {
-                "pivot": 317.22,
-                "r1": 328.98,
-                "s1": 309.43,
-                "sma20": 292.24,
-                "ext_above_sma20_pct": 21.37,
+                "pivot": 358.23,
+                "r1": 372.42,
+                "s1": 340.52,
+                "sma20": 295.36,
+                "ext_above_sma20_pct": 20.09,
                 "atr_pct": 4.14,
                 "vol_surge": 47.44
             },
@@ -287,7 +292,7 @@
             "catalyst": "",
             "flags": [
                 "Overbought RSI 82",
-                "Extended +21% above 20D avg",
+                "Extended +20% above 20D avg",
                 "Loss-making (negative PE)"
             ],
             "score": 46.1
@@ -308,11 +313,11 @@
             "wk52_high": 2500.0,
             "dist_52w_pct": -6.15,
             "technicals": {
-                "pivot": 2248.97,
-                "r1": 2446.93,
-                "s1": 2096.93,
-                "sma20": 2020.46,
-                "ext_above_sma20_pct": 16.12,
+                "pivot": 2348.87,
+                "r1": 2396.73,
+                "s1": 2298.33,
+                "sma20": 2036.75,
+                "ext_above_sma20_pct": 15.19,
                 "atr_pct": 5.41,
                 "vol_surge": 2.91
             },
@@ -320,10 +325,10 @@
             "event_risk": false,
             "catalyst": "",
             "flags": [
-                "Extended +16% above 20D avg",
+                "Extended +15% above 20D avg",
                 "Very high PE 276"
             ],
-            "score": 39.8
+            "score": 40.9
         }
     ],
     "rule_based_top_5": [
@@ -343,11 +348,11 @@
             "wk52_high": 406.8,
             "dist_52w_pct": -0.86,
             "technicals": {
-                "pivot": 370.35,
-                "r1": 374.4,
-                "s1": 366.2,
-                "sma20": 364.1,
-                "ext_above_sma20_pct": 10.77,
+                "pivot": 392.5,
+                "r1": 417.6,
+                "s1": 378.2,
+                "sma20": 366.06,
+                "ext_above_sma20_pct": 10.17,
                 "atr_pct": 3.89,
                 "vol_surge": 5.58
             },
@@ -355,7 +360,7 @@
             "event_risk": false,
             "catalyst": "",
             "flags": [],
-            "score": 74.3
+            "score": 75.1
         },
         {
             "symbol": "SHUKRAMED",
@@ -403,11 +408,11 @@
             "wk52_high": 1354.5,
             "dist_52w_pct": -1.37,
             "technicals": {
-                "pivot": 1140.8,
-                "r1": 1161.5,
-                "s1": 1108.05,
-                "sma20": 1088.69,
-                "ext_above_sma20_pct": 22.71,
+                "pivot": 1279.82,
+                "r1": 1410.58,
+                "s1": 1205.13,
+                "sma20": 1101.05,
+                "ext_above_sma20_pct": 21.33,
                 "atr_pct": 6.84,
                 "vol_surge": 5.55
             },
@@ -415,42 +420,9 @@
             "event_risk": false,
             "catalyst": "",
             "flags": [
-                "Extended +23% above 20D avg"
+                "Extended +21% above 20D avg"
             ],
             "score": 61.4
-        },
-        {
-            "symbol": "HMAAGRO",
-            "name": "HMA Agro Industries",
-            "ltp": 40.03,
-            "change": 6.1200000000000045,
-            "pct_change": 18.047773518136257,
-            "volume": 124868159.0,
-            "rsi": 85.06495,
-            "pe": 7.4,
-            "mcap_cr": 1698.1,
-            "open": 33.01,
-            "bc_open": 29.34,
-            "bc_close": 33.91,
-            "wk52_high": 40.69,
-            "dist_52w_pct": -1.62,
-            "technicals": {
-                "pivot": 32.35,
-                "r1": 36.18,
-                "s1": 30.07,
-                "sma20": 26.61,
-                "ext_above_sma20_pct": 50.45,
-                "atr_pct": 6.22,
-                "vol_surge": 9.27
-            },
-            "next_event": null,
-            "event_risk": false,
-            "catalyst": "",
-            "flags": [
-                "Overbought RSI 85",
-                "Extended +50% above 20D avg"
-            ],
-            "score": 58.3
         },
         {
             "symbol": "PERSISTENT",
@@ -468,19 +440,56 @@
             "wk52_high": 6599.0,
             "dist_52w_pct": -4.8,
             "technicals": {
-                "pivot": 6056.67,
-                "r1": 6282.33,
-                "s1": 5898.33,
-                "sma20": 5980.61,
-                "ext_above_sma20_pct": 5.05,
+                "pivot": 6252.67,
+                "r1": 6369.33,
+                "s1": 6165.83,
+                "sma20": 5995.7,
+                "ext_above_sma20_pct": 4.78,
                 "atr_pct": 2.51,
                 "vol_surge": 2.38
+            },
+            "next_event": {
+                "type": "earnings",
+                "date": "2027-01-19",
+                "days_away": 56,
+                "direction": "two-sided (results volatility)"
+            },
+            "event_risk": false,
+            "catalyst": "",
+            "flags": [],
+            "score": 58.6
+        },
+        {
+            "symbol": "MILKYMIST",
+            "name": "Milky Mist Dairy Food",
+            "ltp": 339.45,
+            "change": 15.800000000000011,
+            "pct_change": 4.881816777382979,
+            "volume": 2081498.0,
+            "rsi": 69.4652,
+            "pe": 106.0,
+            "mcap_cr": 24916.0,
+            "open": 321.8,
+            "bc_open": 311.8,
+            "bc_close": 323.65,
+            "wk52_high": 342.4,
+            "dist_52w_pct": -0.86,
+            "technicals": {
+                "pivot": 331.77,
+                "r1": 347.48,
+                "s1": 323.73,
+                "sma20": 304.05,
+                "ext_above_sma20_pct": 11.64,
+                "atr_pct": 4.08,
+                "vol_surge": 3.28
             },
             "next_event": null,
             "event_risk": false,
             "catalyst": "",
-            "flags": [],
-            "score": 58.3
+            "flags": [
+                "Very high PE 106"
+            ],
+            "score": 58.5
         }
     ],
     "ai_top_5": [],
