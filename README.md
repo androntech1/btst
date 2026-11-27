@@ -13,10 +13,10 @@ Access the full interactive dashboard with real-time sortable tables, AI score m
 
 👉 **[https://androntech1.github.io/btst/](https://androntech1.github.io/btst/)**
 
-### ⚡ Latest Scan Summary (26 November 2026)
-- **ScanX Candidates:** 27
-- **Passed 52W High Filter:** 10 stocks within 10% of 52W High
-- **Top Rule-Based Pick:** **Action Construction Equipment** (Composite: **81.0/100**)
+### ⚡ Latest Scan Summary (27 November 2026)
+- **ScanX Candidates:** 20
+- **Passed 52W High Filter:** 5 stocks within 10% of 52W High
+- **Top Rule-Based Pick:** **Sonal Mercantile** (Composite: **67.7/100**)
 - **Data Exports:** [`data/data_latest.json`](data/data_latest.json) • [`data/manifest.json`](data/manifest.json) • raw/processed under [`data/`](data/)
 
 ---
